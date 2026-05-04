@@ -1,0 +1,18 @@
+﻿include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    # Erreurs de generation (drift_dev / riverpod_generator) - ignorees jusqu''au 1er build_runner
+    uri_has_not_been_generated: ignore
+
+linter:
+  rules:
+    avoid_print: true
+    prefer_single_quotes: true
+    require_trailing_commas: true
+    sort_constructors_first: true
+    use_super_parameters: true
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    avoid_unnecessary_containers: true
+    sized_box_for_whitespace: true

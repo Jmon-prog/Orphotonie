@@ -1,0 +1,109 @@
+name: orphotonie
+description: "Application d'orthophonie multiplateforme 100% hors ligne pour orthophonistes et parents."
+publish_to: 'none'
+
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.5.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # --- Base de données locale (100% hors ligne) ---
+  drift: ^2.18.0               # ORM SQLite — base principale app.db
+  sqlite3_flutter_libs: ^0.5.0 # Binaires SQLite natifs (Android/iOS/Desktop)
+  sqlite3: ^2.4.3              # SQLite WASM (web) — requis pour drift/wasm.dart
+  typed_data: ^1.3.2           # Uint8Buffer pour InMemoryFileSystem (web WASM)
+  path_provider: ^2.1.3        # Chemin documents local (jamais de chemin hardcodé)
+  path: ^1.9.0                 # Manipulation de chemins multiplateforme
+
+  # --- Gestion d'état ---
+  flutter_riverpod: ^2.5.1     # Gestion d'état réactive
+  riverpod_annotation: ^2.3.5  # Annotations pour génération de code Riverpod
+
+  # --- Navigation ---
+  go_router: ^14.2.7           # Navigation déclarative multiplateforme
+
+  # --- Sécurité (PIN local — aucun réseau) ---
+  flutter_secure_storage: ^9.2.2  # Stockage chiffré du hash PIN praticien
+  crypto: ^3.0.3                  # SHA-256 pour hachage du PIN
+
+  # --- Médias locaux ---
+  image_picker: ^1.1.2         # Sélection image galerie/appareil photo local
+  record: ^5.1.2               # Enregistrement audio microphone local
+  audioplayers: ^6.1.0         # Lecture fichiers audio locaux embarqués
+
+  # --- Export PDF local ---
+  pdf: ^3.11.1                 # Génération PDF 100% locale
+  printing: ^5.13.1            # Impression et prévisualisation PDF locale
+
+  # --- Partage local (sans serveur) ---
+  qr_flutter: ^4.1.0           # Génération QR Code locale
+  mobile_scanner: ^5.2.3       # Scan QR Code via caméra locale
+  share_plus: ^10.0.0          # Share sheet natif (fichier .orpho)
+  file_picker: ^8.1.3          # Import fichier .orpho depuis le stockage local
+  archive: ^3.6.1              # ZIP/GZip pour format .orpho (chiffrement local)
+
+  # --- TTS local (moteur OS) ---
+  flutter_tts: ^4.2.0          # Text-to-Speech natif OS — AUCUN appel réseau
+
+  # --- UI ---
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1         # Nunito + Baloo2 — chargées depuis assets (offline)
+
+  # --- Design adaptatif & Desktop ---
+  window_manager: ^0.3.9       # Taille minimale + titre fenêtre (Windows/macOS/Linux)
+  ffi: ^2.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # --- Génération de code ---
+  drift_dev: ^2.18.0           # Générateur de code Drift
+  build_runner: ^2.4.9         # Runner de génération (drift_dev + riverpod)
+  riverpod_generator: ^2.4.3   # Générateur de providers Riverpod
+
+  # --- Qualité du code ---
+  flutter_lints: ^4.0.0        # Règles lint recommandées Flutter
+  mocktail: ^1.0.4             # Mocks pour tests unitaires (sans réseau)
+
+# Résolution de conflit record_linux 0.7.2 / record_platform_interface 1.5.0
+dependency_overrides:
+  record_linux: ^1.3.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    # Bases de données SQLite embarquées (copie vers documents au 1er lancement)
+    - assets/data/definitions.db    # 3 726 entrées — Dubois-Buyse + définitions
+    - assets/data/lexique4.db       # 4 973 entrées — mots avec définition uniquement (allégé)
+    # Sons de feedback embarqués (aucun réseau)
+    - assets/sounds/
+    # Images des thèmes enfant et onboarding
+    - assets/images/
+    # Polices Nunito en assets bruts — non soumises au subsetting web Flutter,
+    # utilisables pour l'embedding PDF si besoin (pw.Font.ttf + rootBundle.load).
+    - assets/fonts/Nunito/Nunito-Regular.ttf
+    - assets/fonts/Nunito/Nunito-Bold.ttf
+
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito/Nunito-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Nunito/Nunito-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Nunito/Nunito-ExtraBold.ttf
+          weight: 800
+    - family: Baloo2
+      fonts:
+        - asset: assets/fonts/Baloo2/Baloo2-Regular.ttf
+        - asset: assets/fonts/Baloo2/Baloo2-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Baloo2/Baloo2-Bold.ttf
+          weight: 700
