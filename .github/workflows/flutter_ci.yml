@@ -74,7 +74,7 @@ jobs:
 
       - name: Build web (production)
         working-directory: orphotonie
-        run: flutter build web --release --no-pub
+        run: flutter build web --release --no-pub --base-href "/Orphotonie/"
 
       - name: Archiver l'artefact web
         uses: actions/upload-artifact@v4
@@ -82,3 +82,11 @@ jobs:
           name: orphotonie-web-${{ github.sha }}
           path: orphotonie/build/web/
           retention-days: 14
+
+      - name: Déployer sur GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: orphotonie/build/web
+          cname: ""

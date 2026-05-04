@@ -20,7 +20,7 @@ pilotés par un système de répétition espacée (Leitner).
 
 ## Plateformes
 
-Android · Windows · Web (PWA)
+Android · Windows · **[Web PWA](https://jmon-prog.github.io/Orphotonie/)**
 
 ## Prérequis
 
