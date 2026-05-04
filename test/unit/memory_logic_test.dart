@@ -33,7 +33,8 @@ void main() {
     test(
         'chaque paire génère une carte isWordSide=true et une isWordSide=false',
         () {
-      final cards = buildMemoryCards(pairs);
+      // wordOnly: false → une carte mot + une carte définition par paire
+      final cards = buildMemoryCards(pairs, wordOnly: false);
       for (final pair in pairs) {
         final wordCards = cards
             .where((c) => c.wordId == pair.wordId && c.isWordSide)
@@ -67,7 +68,8 @@ void main() {
     });
 
     test('carte définition contient la définition', () {
-      final cards = buildMemoryCards(pairs);
+      // wordOnly: false → la deuxième carte contient la définition
+      final cards = buildMemoryCards(pairs, wordOnly: false);
       final defCard = cards.firstWhere((c) => c.wordId == 1 && !c.isWordSide);
       expect(defCard.content, equals('Animal domestique'));
     });

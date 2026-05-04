@@ -74,8 +74,6 @@ Future<Lexique4Database> _buildTestDb() async {
       '/mang/.able',
       0
     ),
-    // islem=0 → jamais retourné
-    ('chats', 'Sa', 'NOM', 1, 5, 'CVCC', 95.0, 0, null, 0),
     // nbhomoph>0
     ('verre', 'vER', 'NOM', 1, 5, 'CVCCV', 80.0, 1, null, 2),
   ];
@@ -107,17 +105,20 @@ void main() {
 
   tearDown(() => db.close());
 
-  // ── islem = 1 obligatoire ─────────────────────────────────────────────────
-  group('Règle islem = 1', () {
-    test('search() ne retourne jamais islem = 0', () async {
+  // ── DB pré-filtrée : tous les enregistrements sont des lemmes ─────────────
+  // lexique4.db est livrée sans les formes fléchies (islem=0).
+  // Le repository ne filtre pas par islem — c'est la DB qui garantit
+  // que tous les mots retournés sont des lemmes (islem=1).
+  group('DB pré-filtrée : tous les mots sont des lemmes', () {
+    test('search() retourne toutes les entrées (toutes islem=1)', () async {
       final result = await repo.search(const SearchFilters());
       for (final e in result.entries) {
         expect(e.islem, equals(1), reason: '${e.mot} a islem=${e.islem}');
       }
     });
 
-    test('getEntry() retourne null pour un mot islem=0', () async {
-      final entry = await repo.getEntry('chats');
+    test('getEntry() retourne null pour un mot absent de la DB', () async {
+      final entry = await repo.getEntry('mot_absent');
       expect(entry, equals(null));
     });
   });
@@ -269,8 +270,10 @@ void main() {
     });
 
     test('chats (islem=0) → null dans fetchBatch', () async {
-      final batch = await repo.fetchBatch(['chats']);
-      expect(batch['chats'], equals(null));
+      // La DB de production est pré-filtrée (pas de formes fléchies).
+      // Un mot absent de la DB retourne null.
+      final batch = await repo.fetchBatch(['mot_absent_islem0']);
+      expect(batch['mot_absent_islem0'], equals(null));
     });
   });
 }

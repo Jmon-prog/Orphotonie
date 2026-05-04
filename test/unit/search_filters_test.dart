@@ -13,10 +13,12 @@ void main() {
   // SQL Generation
   // -------------------------------------------------------------------------
   group('SearchFilters.buildSql()', () {
-    test('filtre par défaut contient toujours islem = 1', () {
+    test('filtre par défaut ne contient pas islem (DB pré-filtrée)', () {
       const f = SearchFilters();
       final (:sql, :args) = f.buildSql();
-      expect(sql, contains('islem = 1'));
+      // lexique4.db est pré-filtrée : le code ne rajoute pas islem=1
+      expect(sql, isNot(contains('islem = 1')));
+      expect(sql, contains('FROM lexique4'));
     });
 
     test('textQuery génère LIKE %query%', () {
@@ -107,14 +109,13 @@ void main() {
       );
       final (:sql, :args) = f.buildSql();
       // Toutes les clauses présentes
-      expect(sql, contains('islem = 1'));
       expect(sql, contains('cgram IN'));
       expect(sql, contains('nbsyll IN'));
       expect(sql, contains('preval >= ?'));
       expect(sql, contains('LOWER(mot) LIKE LOWER(?)'));
       // AND entre chaque clause
       final ands = RegExp(r' AND ').allMatches(sql).length;
-      expect(ands, greaterThanOrEqualTo(4));
+      expect(ands, greaterThanOrEqualTo(3));
     });
 
     test('pagination : LIMIT et OFFSET dans les args', () {
@@ -255,7 +256,8 @@ void main() {
       final f = SearchFilters(rawWheres: [qs.whereClause]);
       final (:sql, :args) = f.buildSql();
       expect(sql, contains("cvortho = 'CVCV'"));
-      expect(sql, contains('islem = 1'));
+      // lexique4.db est pré-filtrée : islem=1 n'est pas injecté par SearchFilters
+      expect(sql, isNot(contains('islem = 1')));
     });
   });
 }
