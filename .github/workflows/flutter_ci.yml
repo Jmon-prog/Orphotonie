@@ -33,21 +33,18 @@ jobs:
           cache: true
 
       - name: Installer les dépendances
-        working-directory: orphotonie
         run: flutter pub get
 
       - name: Analyse statique (flutter analyze)
-        working-directory: orphotonie
         run: flutter analyze --fatal-infos
 
       - name: Tests unitaires et widgets
-        working-directory: orphotonie
         run: flutter test --coverage
 
       - name: Publier la couverture (Codecov)
         uses: codecov/codecov-action@v4
         with:
-          files: orphotonie/coverage/lcov.info
+          files: coverage/lcov.info
           flags: flutter
         # Ne bloque pas le CI si Codecov est absent
         continue-on-error: true
@@ -69,18 +66,16 @@ jobs:
           cache: true
 
       - name: Installer les dépendances
-        working-directory: orphotonie
         run: flutter pub get
 
       - name: Build web (production)
-        working-directory: orphotonie
         run: flutter build web --release --no-pub --base-href "/Orphotonie/"
 
       - name: Archiver l'artefact web
         uses: actions/upload-artifact@v4
         with:
           name: orphotonie-web-${{ github.sha }}
-          path: orphotonie/build/web/
+          path: build/web/
           retention-days: 14
 
       - name: Déployer sur GitHub Pages
@@ -88,5 +83,5 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: orphotonie/build/web
+          publish_dir: build/web
           cname: ""
