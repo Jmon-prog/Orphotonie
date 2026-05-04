@@ -31,7 +31,7 @@ jobs:
       - name: Configurer Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
+          flutter-version: '3.24.3'
           channel: stable
           cache: true
 
@@ -42,7 +42,7 @@ jobs:
         run: flutter analyze --fatal-warnings
 
       - name: Tests unitaires et widgets
-        run: flutter test --coverage
+        run: flutter test --reporter expanded --coverage
 
       - name: Publier la couverture (Codecov)
         uses: codecov/codecov-action@v4
@@ -63,7 +63,7 @@ jobs:
       - name: Configurer Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
+          flutter-version: '3.24.3'
           channel: stable
           cache: true
 
