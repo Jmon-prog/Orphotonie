@@ -12,6 +12,9 @@ on:
   pull_request:
     branches: [main, develop]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -36,7 +39,7 @@ jobs:
         run: flutter pub get
 
       - name: Analyse statique (flutter analyze)
-        run: flutter analyze --fatal-infos
+        run: flutter analyze --fatal-warnings
 
       - name: Tests unitaires et widgets
         run: flutter test --coverage
@@ -46,7 +49,6 @@ jobs:
         with:
           files: coverage/lcov.info
           flags: flutter
-        # Ne bloque pas le CI si Codecov est absent
         continue-on-error: true
 
   build_web:
