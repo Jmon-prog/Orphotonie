@@ -320,20 +320,20 @@ class _ShareDictionaryScreenState extends ConsumerState<ShareDictionaryScreen> {
     final theme = Theme.of(context);
 
     if (_loading) {
-      return Scaffold(
+      return const Scaffold(
         appBar: ThemedAppBar(
           title: 'Partager',
         ),
-        body: const Center(child: CircularProgressIndicator()),
+        body: Center(child: CircularProgressIndicator()),
       );
     }
 
     if (_dictionary == null) {
-      return Scaffold(
+      return const Scaffold(
         appBar: ThemedAppBar(
           title: 'Partager',
         ),
-        body: const Center(child: Text('Dictionnaire introuvable.')),
+        body: Center(child: Text('Dictionnaire introuvable.')),
       );
     }
 

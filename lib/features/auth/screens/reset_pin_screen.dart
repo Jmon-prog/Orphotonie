@@ -80,7 +80,7 @@ class _ResetPinScreenState extends ConsumerState<ResetPinScreen> {
     });
 
     return Scaffold(
-      appBar: ThemedAppBar(
+      appBar: const ThemedAppBar(
         title: 'Nouveau PIN',
       ),
       body: Center(

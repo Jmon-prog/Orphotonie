@@ -38,7 +38,7 @@ class _GlossaryScreenState extends State<GlossaryScreen> {
     final entries = _filteredEntries;
 
     return Scaffold(
-      appBar: ThemedAppBar(
+      appBar: const ThemedAppBar(
         title: 'Glossaire',
       ),
       body: Column(

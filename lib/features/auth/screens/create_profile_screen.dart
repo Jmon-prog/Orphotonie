@@ -91,7 +91,7 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ThemedAppBar(
+      appBar: const ThemedAppBar(
         title: 'Nouveau profil enfant',
       ),
       body: LayoutBuilder(

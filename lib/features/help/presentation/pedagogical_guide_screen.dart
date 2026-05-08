@@ -17,7 +17,7 @@ class PedagogicalGuideScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ThemedAppBar(
+      appBar: const ThemedAppBar(
         title: 'Guides pédagogiques',
       ),
       body: ListView.builder(

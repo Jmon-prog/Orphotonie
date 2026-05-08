@@ -56,7 +56,7 @@ class _CreatePractitionerScreenState
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: ThemedAppBar(
+      appBar: const ThemedAppBar(
         title: 'Espace Gestionnaire',
       ),
       body: Center(

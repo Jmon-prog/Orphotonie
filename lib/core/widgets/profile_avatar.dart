@@ -88,7 +88,7 @@ class ProfileAvatar extends StatelessWidget {
     return Hero(
       tag: profileHeroTag(profileId),
       // Fait fondre l'avatar source pendant la transition de page.
-      flightShuttleBuilder: (_, animation, __, _fromCtx, toCtx) {
+      flightShuttleBuilder: (_, animation, __, fromCtx, toCtx) {
         return FadeTransition(opacity: animation, child: toCtx.widget);
       },
       child: avatar,
