@@ -43,7 +43,13 @@ class _DecouverteConfigScreenState
     _CycleOption('Collège', '5ème · 4ème · 3ème', '🚀', 20, 32, 0xFFB05AE0),
     _CycleOption('Lycée', '2nde · 1ère · Terminale', '🎓', 32, 43, 0xFFE05A5A),
     _CycleOption(
-        'Surprise !', 'Tous niveaux mélangés', '🎲', 1, 43, 0xFFE0A05A,),
+      'Surprise !',
+      'Tous niveaux mélangés',
+      '🎲',
+      1,
+      43,
+      0xFFE0A05A,
+    ),
   ];
 
   void _selectCycle(int index) {
@@ -74,7 +80,8 @@ class _DecouverteConfigScreenState
 
     if (!mounted) return;
     context.go(
-        '${AppRoutes.decouvertePresentation}?profileId=${widget.profileId}',);
+      '${AppRoutes.decouvertePresentation}?profileId=${widget.profileId}',
+    );
   }
 
   @override
@@ -189,11 +196,15 @@ class _DecouverteConfigScreenState
                               onTap: () => _selectCycle(i),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 8,),
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
                                 child: Row(
                                   children: [
-                                    Text(c.emoji,
-                                        style: const TextStyle(fontSize: 22),),
+                                    Text(
+                                      c.emoji,
+                                      style: const TextStyle(fontSize: 22),
+                                    ),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Column(
@@ -237,73 +248,79 @@ class _DecouverteConfigScreenState
                     ),
                     const SizedBox(height: 8),
                     // Ligne 2 : Surprise (pleine largeur)
-                    Builder(builder: (context) {
-                      const i = 4;
-                      final c = _cycles[i];
-                      final selected = _selectedCycleIndex == i;
-                      final color = Color(c.color);
-                      return Semantics(
-                        label: '${c.label}, ${c.subLabel}',
-                        button: true,
-                        selected: selected,
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 180),
-                          decoration: BoxDecoration(
-                            color: selected
-                                ? color.withAlpha(200)
-                                : theme.colorScheme.surfaceContainerHighest,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
+                    Builder(
+                      builder: (context) {
+                        const i = 4;
+                        final c = _cycles[i];
+                        final selected = _selectedCycleIndex == i;
+                        final color = Color(c.color);
+                        return Semantics(
+                          label: '${c.label}, ${c.subLabel}',
+                          button: true,
+                          selected: selected,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 180),
+                            decoration: BoxDecoration(
                               color: selected
-                                  ? color
-                                  : theme.colorScheme.outline.withAlpha(80),
-                              width: 2,
+                                  ? color.withAlpha(200)
+                                  : theme.colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: selected
+                                    ? color
+                                    : theme.colorScheme.outline.withAlpha(80),
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(16),
-                            onTap: () => _selectCycle(i),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 10,),
-                              child: Row(
-                                children: [
-                                  Text(c.emoji,
-                                      style: const TextStyle(fontSize: 24),),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        c.label,
-                                        style: theme.textTheme.labelLarge
-                                            ?.copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          color: selected
-                                              ? Colors.white
-                                              : theme.colorScheme.onSurface,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () => _selectCycle(i),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 10,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      c.emoji,
+                                      style: const TextStyle(fontSize: 24),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          c.label,
+                                          style: theme.textTheme.labelLarge
+                                              ?.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: selected
+                                                ? Colors.white
+                                                : theme.colorScheme.onSurface,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        c.subLabel,
-                                        style: theme.textTheme.labelSmall
-                                            ?.copyWith(
-                                          color: selected
-                                              ? Colors.white.withAlpha(200)
-                                              : theme.colorScheme.onSurface
-                                                  .withAlpha(130),
+                                        Text(
+                                          c.subLabel,
+                                          style: theme.textTheme.labelSmall
+                                              ?.copyWith(
+                                            color: selected
+                                                ? Colors.white.withAlpha(200)
+                                                : theme.colorScheme.onSurface
+                                                    .withAlpha(130),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },),
+                        );
+                      },
+                    ),
                     const SizedBox(height: 32),
 
                     // ── Nombre de mots ────────────────────────────────────────

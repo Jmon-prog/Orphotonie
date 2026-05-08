@@ -76,7 +76,13 @@ void main() {
     test('entry est conservé dans copyWith', () {
       final entry = _fakeEntry('ARBRE');
       final ws = DecouverteWordState(entry: entry);
-      expect(identical(ws.copyWith(status: WordExplorationStatus.known).entry, entry), isTrue);
+      expect(
+        identical(
+          ws.copyWith(status: WordExplorationStatus.known).entry,
+          entry,
+        ),
+        isTrue,
+      );
     });
   });
 
@@ -97,10 +103,22 @@ void main() {
     // -- wordsToLearn --
     test('wordsToLearn retourne uniquement les mots toLearn', () {
       final words = [
-        DecouverteWordState(entry: _fakeEntry('A'), status: WordExplorationStatus.toLearn),
-        DecouverteWordState(entry: _fakeEntry('B'), status: WordExplorationStatus.known),
-        DecouverteWordState(entry: _fakeEntry('C'), status: WordExplorationStatus.unknown),
-        DecouverteWordState(entry: _fakeEntry('D'), status: WordExplorationStatus.toLearn),
+        DecouverteWordState(
+          entry: _fakeEntry('A'),
+          status: WordExplorationStatus.toLearn,
+        ),
+        DecouverteWordState(
+          entry: _fakeEntry('B'),
+          status: WordExplorationStatus.known,
+        ),
+        DecouverteWordState(
+          entry: _fakeEntry('C'),
+          status: WordExplorationStatus.unknown,
+        ),
+        DecouverteWordState(
+          entry: _fakeEntry('D'),
+          status: WordExplorationStatus.toLearn,
+        ),
       ];
       final s = DecouverteSessionState(words: words);
       expect(s.wordsToLearn.length, equals(2));
@@ -109,7 +127,10 @@ void main() {
 
     test('wordsToLearn est vide si aucun mot toLearn', () {
       final words = [
-        DecouverteWordState(entry: _fakeEntry('A'), status: WordExplorationStatus.known),
+        DecouverteWordState(
+          entry: _fakeEntry('A'),
+          status: WordExplorationStatus.known,
+        ),
       ];
       expect(DecouverteSessionState(words: words).wordsToLearn, isEmpty);
     });
@@ -117,16 +138,28 @@ void main() {
     // -- allWordsJudged --
     test('allWordsJudged est false si un mot est unknown', () {
       final words = [
-        DecouverteWordState(entry: _fakeEntry('A'), status: WordExplorationStatus.known),
-        DecouverteWordState(entry: _fakeEntry('B'), status: WordExplorationStatus.unknown),
+        DecouverteWordState(
+          entry: _fakeEntry('A'),
+          status: WordExplorationStatus.known,
+        ),
+        DecouverteWordState(
+          entry: _fakeEntry('B'),
+          status: WordExplorationStatus.unknown,
+        ),
       ];
       expect(DecouverteSessionState(words: words).allWordsJudged, isFalse);
     });
 
     test('allWordsJudged est true quand tous jugés', () {
       final words = [
-        DecouverteWordState(entry: _fakeEntry('A'), status: WordExplorationStatus.known),
-        DecouverteWordState(entry: _fakeEntry('B'), status: WordExplorationStatus.toLearn),
+        DecouverteWordState(
+          entry: _fakeEntry('A'),
+          status: WordExplorationStatus.known,
+        ),
+        DecouverteWordState(
+          entry: _fakeEntry('B'),
+          status: WordExplorationStatus.toLearn,
+        ),
       ];
       expect(DecouverteSessionState(words: words).allWordsJudged, isTrue);
     });
@@ -199,7 +232,8 @@ void main() {
       expect(s.parcoursComplete, isFalse);
     });
 
-    test('parcoursComplete est true quand toutes les choisies sont terminées', () {
+    test('parcoursComplete est true quand toutes les choisies sont terminées',
+        () {
       const s = DecouverteSessionState(
         chosenActivityRoutes: {'/a', '/b'},
         doneActivityRoutes: {'/a', '/b'},
@@ -244,15 +278,21 @@ void main() {
 
     test('toutes les routes commencent par /', () {
       for (final a in kDecouverteActivities) {
-        expect(a.route, startsWith('/'),
-            reason: '${a.route} devrait commencer par /',);
+        expect(
+          a.route,
+          startsWith('/'),
+          reason: '${a.route} devrait commencer par /',
+        );
       }
     });
 
     test('toutes les couleurs sont non nulles et non transparentes', () {
       for (final a in kDecouverteActivities) {
-        expect(a.color, isNonZero,
-            reason: '${a.label} a une couleur nulle',);
+        expect(
+          a.color,
+          isNonZero,
+          reason: '${a.label} a une couleur nulle',
+        );
       }
     });
 

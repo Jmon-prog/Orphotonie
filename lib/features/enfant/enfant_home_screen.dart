@@ -458,11 +458,16 @@ class _DictionaryCard extends ConsumerWidget {
                       value: 'delete',
                       child: Row(
                         children: [
-                          Icon(Icons.delete_outline_rounded,
-                              color: Colors.red, size: 20,),
+                          Icon(
+                            Icons.delete_outline_rounded,
+                            color: Colors.red,
+                            size: 20,
+                          ),
                           SizedBox(width: 10),
-                          Text('Supprimer cette liste',
-                              style: TextStyle(color: Colors.red),),
+                          Text(
+                            'Supprimer cette liste',
+                            style: TextStyle(color: Colors.red),
+                          ),
                         ],
                       ),
                     ),
