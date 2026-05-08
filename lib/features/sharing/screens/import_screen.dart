@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../core/database/app_database.dart';
@@ -20,6 +21,7 @@ import '../../../core/database/database_providers.dart';
 import '../../../core/sharing/share_decoder.dart';
 import '../../../core/sharing/share_encoder.dart';
 import '../../../core/sharing/sharing_providers.dart';
+import '../../../core/widgets/app_bar.dart';
 
 /// Écran d'import de dictionnaire depuis QR Code, fichier ou code texte.
 class ImportScreen extends ConsumerStatefulWidget {
@@ -182,8 +184,10 @@ class _ImportScreenState extends ConsumerState<ImportScreen> {
     }
     // QR code détecté mais pas un code ORPH-
     if (mounted) {
-      setState(() => _scanError =
-          'QR Code non reconnu — ce n\'est pas un dictionnaire Orphotonie.',);
+      setState(
+        () => _scanError =
+            'QR Code non reconnu — ce n\'est pas un dictionnaire Orphotonie.',
+      );
     }
   }
 
@@ -261,7 +265,7 @@ class _ImportScreenState extends ConsumerState<ImportScreen> {
             ),
           ),
         );
-        Navigator.of(context).pop(true);
+        context.pop();
       }
     } catch (e) {
       if (mounted) {
@@ -286,9 +290,8 @@ class _ImportScreenState extends ConsumerState<ImportScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Importer un dictionnaire'),
-        // Bouton retour personnalisé quand le scanner est actif
+      appBar: ThemedAppBar(
+        title: 'Importer un dictionnaire',
         leading: _scanning
             ? IconButton(
                 icon: const Icon(Icons.arrow_back),
@@ -378,8 +381,11 @@ class _ImportScreenState extends ConsumerState<ImportScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close,
-                          color: Colors.white, size: 18,),
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                       onPressed: () => setState(() => _scanError = null),
                     ),
                   ],

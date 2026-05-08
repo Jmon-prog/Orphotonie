@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../pdf/exercise_pdf_generator.dart';
 
 // ---------------------------------------------------------------------------
@@ -128,17 +129,9 @@ class _ExerciseSheetScreenState extends ConsumerState<ExerciseSheetScreen> {
         .watchWordsForDictionary(widget.dictionaryId);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Fiches d\'exercices'),
-            Text(
-              widget.dictionaryName,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-        ),
+      appBar: ThemedAppBar(
+        title: 'Fiches d\'exercices',
+        subtitle: widget.dictionaryName,
       ),
       body: StreamBuilder<List<Word>>(
         stream: wordsStream,

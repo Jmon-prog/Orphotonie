@@ -76,6 +76,12 @@ class $ProfilesTable extends Profiles with TableInfo<$ProfilesTable, Profile> {
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
+  static const VerificationMeta _archivedAtMeta =
+      const VerificationMeta('archivedAt');
+  @override
+  late final GeneratedColumn<DateTime> archivedAt = GeneratedColumn<DateTime>(
+      'archived_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -86,7 +92,8 @@ class $ProfilesTable extends Profiles with TableInfo<$ProfilesTable, Profile> {
         parentId,
         pinHash,
         allowDiscoveryMode,
-        createdAt
+        createdAt,
+        archivedAt
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -139,6 +146,12 @@ class $ProfilesTable extends Profiles with TableInfo<$ProfilesTable, Profile> {
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
+    if (data.containsKey('archived_at')) {
+      context.handle(
+          _archivedAtMeta,
+          archivedAt.isAcceptableOrUnknown(
+              data['archived_at']!, _archivedAtMeta));
+    }
     return context;
   }
 
@@ -166,6 +179,8 @@ class $ProfilesTable extends Profiles with TableInfo<$ProfilesTable, Profile> {
           DriftSqlType.bool, data['${effectivePrefix}allow_discovery_mode'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      archivedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}archived_at']),
     );
   }
 
@@ -203,6 +218,10 @@ class Profile extends DataClass implements Insertable<Profile> {
 
   /// Date de création du profil.
   final DateTime createdAt;
+
+  /// Date d'archivage (null = profil actif). Un profil archivé n'apparaît
+  /// plus dans l'écran de connexion mais toutes ses données sont conservées.
+  final DateTime? archivedAt;
   const Profile(
       {required this.id,
       required this.prenom,
@@ -212,7 +231,8 @@ class Profile extends DataClass implements Insertable<Profile> {
       this.parentId,
       this.pinHash,
       required this.allowDiscoveryMode,
-      required this.createdAt});
+      required this.createdAt,
+      this.archivedAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -233,6 +253,9 @@ class Profile extends DataClass implements Insertable<Profile> {
     }
     map['allow_discovery_mode'] = Variable<bool>(allowDiscoveryMode);
     map['created_at'] = Variable<DateTime>(createdAt);
+    if (!nullToAbsent || archivedAt != null) {
+      map['archived_at'] = Variable<DateTime>(archivedAt);
+    }
     return map;
   }
 
@@ -253,6 +276,9 @@ class Profile extends DataClass implements Insertable<Profile> {
           : Value(pinHash),
       allowDiscoveryMode: Value(allowDiscoveryMode),
       createdAt: Value(createdAt),
+      archivedAt: archivedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(archivedAt),
     );
   }
 
@@ -269,6 +295,7 @@ class Profile extends DataClass implements Insertable<Profile> {
       pinHash: serializer.fromJson<String?>(json['pinHash']),
       allowDiscoveryMode: serializer.fromJson<bool>(json['allowDiscoveryMode']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      archivedAt: serializer.fromJson<DateTime?>(json['archivedAt']),
     );
   }
   @override
@@ -284,6 +311,7 @@ class Profile extends DataClass implements Insertable<Profile> {
       'pinHash': serializer.toJson<String?>(pinHash),
       'allowDiscoveryMode': serializer.toJson<bool>(allowDiscoveryMode),
       'createdAt': serializer.toJson<DateTime>(createdAt),
+      'archivedAt': serializer.toJson<DateTime?>(archivedAt),
     };
   }
 
@@ -296,7 +324,8 @@ class Profile extends DataClass implements Insertable<Profile> {
           Value<int?> parentId = const Value.absent(),
           Value<String?> pinHash = const Value.absent(),
           bool? allowDiscoveryMode,
-          DateTime? createdAt}) =>
+          DateTime? createdAt,
+          Value<DateTime?> archivedAt = const Value.absent()}) =>
       Profile(
         id: id ?? this.id,
         prenom: prenom ?? this.prenom,
@@ -307,6 +336,7 @@ class Profile extends DataClass implements Insertable<Profile> {
         pinHash: pinHash.present ? pinHash.value : this.pinHash,
         allowDiscoveryMode: allowDiscoveryMode ?? this.allowDiscoveryMode,
         createdAt: createdAt ?? this.createdAt,
+        archivedAt: archivedAt.present ? archivedAt.value : this.archivedAt,
       );
   Profile copyWithCompanion(ProfilesCompanion data) {
     return Profile(
@@ -322,6 +352,8 @@ class Profile extends DataClass implements Insertable<Profile> {
           ? data.allowDiscoveryMode.value
           : this.allowDiscoveryMode,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      archivedAt:
+          data.archivedAt.present ? data.archivedAt.value : this.archivedAt,
     );
   }
 
@@ -336,14 +368,15 @@ class Profile extends DataClass implements Insertable<Profile> {
           ..write('parentId: $parentId, ')
           ..write('pinHash: $pinHash, ')
           ..write('allowDiscoveryMode: $allowDiscoveryMode, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('archivedAt: $archivedAt')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(id, prenom, nom, avatarPath, type, parentId,
-      pinHash, allowDiscoveryMode, createdAt);
+      pinHash, allowDiscoveryMode, createdAt, archivedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -356,7 +389,8 @@ class Profile extends DataClass implements Insertable<Profile> {
           other.parentId == this.parentId &&
           other.pinHash == this.pinHash &&
           other.allowDiscoveryMode == this.allowDiscoveryMode &&
-          other.createdAt == this.createdAt);
+          other.createdAt == this.createdAt &&
+          other.archivedAt == this.archivedAt);
 }
 
 class ProfilesCompanion extends UpdateCompanion<Profile> {
@@ -369,6 +403,7 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
   final Value<String?> pinHash;
   final Value<bool> allowDiscoveryMode;
   final Value<DateTime> createdAt;
+  final Value<DateTime?> archivedAt;
   const ProfilesCompanion({
     this.id = const Value.absent(),
     this.prenom = const Value.absent(),
@@ -379,6 +414,7 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
     this.pinHash = const Value.absent(),
     this.allowDiscoveryMode = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.archivedAt = const Value.absent(),
   });
   ProfilesCompanion.insert({
     this.id = const Value.absent(),
@@ -390,6 +426,7 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
     this.pinHash = const Value.absent(),
     this.allowDiscoveryMode = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.archivedAt = const Value.absent(),
   }) : prenom = Value(prenom);
   static Insertable<Profile> custom({
     Expression<int>? id,
@@ -401,6 +438,7 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
     Expression<String>? pinHash,
     Expression<bool>? allowDiscoveryMode,
     Expression<DateTime>? createdAt,
+    Expression<DateTime>? archivedAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -413,6 +451,7 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
       if (allowDiscoveryMode != null)
         'allow_discovery_mode': allowDiscoveryMode,
       if (createdAt != null) 'created_at': createdAt,
+      if (archivedAt != null) 'archived_at': archivedAt,
     });
   }
 
@@ -425,7 +464,8 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
       Value<int?>? parentId,
       Value<String?>? pinHash,
       Value<bool>? allowDiscoveryMode,
-      Value<DateTime>? createdAt}) {
+      Value<DateTime>? createdAt,
+      Value<DateTime?>? archivedAt}) {
     return ProfilesCompanion(
       id: id ?? this.id,
       prenom: prenom ?? this.prenom,
@@ -436,6 +476,7 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
       pinHash: pinHash ?? this.pinHash,
       allowDiscoveryMode: allowDiscoveryMode ?? this.allowDiscoveryMode,
       createdAt: createdAt ?? this.createdAt,
+      archivedAt: archivedAt ?? this.archivedAt,
     );
   }
 
@@ -469,6 +510,9 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
+    if (archivedAt.present) {
+      map['archived_at'] = Variable<DateTime>(archivedAt.value);
+    }
     return map;
   }
 
@@ -483,7 +527,8 @@ class ProfilesCompanion extends UpdateCompanion<Profile> {
           ..write('parentId: $parentId, ')
           ..write('pinHash: $pinHash, ')
           ..write('allowDiscoveryMode: $allowDiscoveryMode, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('archivedAt: $archivedAt')
           ..write(')'))
         .toString();
   }
@@ -4558,6 +4603,7 @@ typedef $$ProfilesTableCreateCompanionBuilder = ProfilesCompanion Function({
   Value<String?> pinHash,
   Value<bool> allowDiscoveryMode,
   Value<DateTime> createdAt,
+  Value<DateTime?> archivedAt,
 });
 typedef $$ProfilesTableUpdateCompanionBuilder = ProfilesCompanion Function({
   Value<int> id,
@@ -4569,6 +4615,7 @@ typedef $$ProfilesTableUpdateCompanionBuilder = ProfilesCompanion Function({
   Value<String?> pinHash,
   Value<bool> allowDiscoveryMode,
   Value<DateTime> createdAt,
+  Value<DateTime?> archivedAt,
 });
 
 final class $$ProfilesTableReferences
@@ -4706,6 +4753,9 @@ class $$ProfilesTableFilterComposer
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get archivedAt => $composableBuilder(
+      column: $table.archivedAt, builder: (column) => ColumnFilters(column));
 
   Expression<bool> dictionariesRefs(
       Expression<bool> Function($$DictionariesTableFilterComposer f) f) {
@@ -4872,6 +4922,9 @@ class $$ProfilesTableOrderingComposer
 
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get archivedAt => $composableBuilder(
+      column: $table.archivedAt, builder: (column) => ColumnOrderings(column));
 }
 
 class $$ProfilesTableAnnotationComposer
@@ -4909,6 +4962,9 @@ class $$ProfilesTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get archivedAt => $composableBuilder(
+      column: $table.archivedAt, builder: (column) => column);
 
   Expression<T> dictionariesRefs<T extends Object>(
       Expression<T> Function($$DictionariesTableAnnotationComposer a) f) {
@@ -5077,6 +5133,7 @@ class $$ProfilesTableTableManager extends RootTableManager<
             Value<String?> pinHash = const Value.absent(),
             Value<bool> allowDiscoveryMode = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime?> archivedAt = const Value.absent(),
           }) =>
               ProfilesCompanion(
             id: id,
@@ -5088,6 +5145,7 @@ class $$ProfilesTableTableManager extends RootTableManager<
             pinHash: pinHash,
             allowDiscoveryMode: allowDiscoveryMode,
             createdAt: createdAt,
+            archivedAt: archivedAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -5099,6 +5157,7 @@ class $$ProfilesTableTableManager extends RootTableManager<
             Value<String?> pinHash = const Value.absent(),
             Value<bool> allowDiscoveryMode = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime?> archivedAt = const Value.absent(),
           }) =>
               ProfilesCompanion.insert(
             id: id,
@@ -5110,6 +5169,7 @@ class $$ProfilesTableTableManager extends RootTableManager<
             pinHash: pinHash,
             allowDiscoveryMode: allowDiscoveryMode,
             createdAt: createdAt,
+            archivedAt: archivedAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) =>

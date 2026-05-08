@@ -11,6 +11,7 @@ import 'package:drift/drift.dart' show Value;
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 
 class CreatePractitionerScreen extends ConsumerStatefulWidget {
   const CreatePractitionerScreen({super.key});
@@ -55,7 +56,9 @@ class _CreatePractitionerScreenState
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Espace Gestionnaire')),
+      appBar: ThemedAppBar(
+        title: 'Espace Gestionnaire',
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 480),

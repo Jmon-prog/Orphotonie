@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../services/definitions_service.dart';
 import '../services/media_service.dart';
 
@@ -362,8 +363,8 @@ class _AddEditWordScreenState extends ConsumerState<AddEditWordScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_isEdit ? 'Modifier le mot' : 'Ajouter un mot'),
+      appBar: ThemedAppBar(
+        title: _isEdit ? 'Modifier le mot' : 'Ajouter un mot',
         actions: [
           Semantics(
             label: 'Enregistrer le mot',

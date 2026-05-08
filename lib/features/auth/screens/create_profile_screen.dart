@@ -12,6 +12,7 @@ import 'package:drift/drift.dart' show Value;
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 
 /// Avatars emoji disponibles pour les enfants.
 const _avatars = [
@@ -90,7 +91,9 @@ class _CreateProfileScreenState extends ConsumerState<CreateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Nouveau profil enfant')),
+      appBar: ThemedAppBar(
+        title: 'Nouveau profil enfant',
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Center(

@@ -77,17 +77,34 @@
 
 1. Sélectionnez le profil de l'enfant
 2. Choisissez un dictionnaire
-3. Sélectionnez une activité parmi les 5 jeux :
+3. Sélectionnez une activité parmi les **9 jeux** :
    - **Anagramme** — réordonner les lettres mélangées
    - **Pendu** — deviner lettre par lettre
    - **Mot Lacunaire** — compléter les lettres manquantes
    - **Mots Cachés** — trouver les mots dans une grille
    - **Mots Croisés** — remplir la grille à partir de définitions
+   - **Flashcard** — retourner des cartes mot/définition
+   - **QCM Définition** — choisir la bonne définition parmi 4
+   - **Syllabes** — remettre les syllabes dans le bon ordre
+   - **Memory** — retrouver les paires mot ↔ définition
 4. Ajustez les paramètres de difficulté si disponibles
-5. L'enfant joue en autonomie
+5. L’enfant joue en autonomie
 
 Le système de **répétition espacée** (Leitner) sélectionne automatiquement
 les mots à réviser en priorité.
+
+---
+
+## Mode Découverte
+
+Le mode Découverte permet à l’enfant d’explorer des mots nouveaux classés
+par niveau scolaire (Dubois-Buyse), sans dictionnaire préalable.
+
+1. Activer/désactiver depuis la fiche du profil enfant (**« Mode Découverte »**)
+2. L’enfant choisit un cycle scolaire (CP, CM, Collège, Lycée, Surprise) et un nombre de mots
+3. Chaque mot est présenté avec sa définition ; l’enfant juge « Je connais » / « Je découvre »
+4. Un parcours de jeux est proposé pour les mots découverts
+5. En fin de session, option de sauvegarder la liste comme nouveau dictionnaire
 
 ---
 
@@ -152,6 +169,17 @@ Le praticien peut exporter un rapport PDF de progression contenant :
 
 - Limiter le temps de jeu en minutes (0 = illimité)
 - Alerte douce quand le temps est écoulé
+
+### Options d'accessibilité
+
+- **Police dyslexie** (OpenDyslexic) : active une police adaptée pour les profils dyslexiques
+- **Contraste élevé** : renforce le contraste des couleurs
+- **Mode daltonisme** : deuteranopie, protanopie, tritanopie
+- **Réduire les animations** : désactive les animations de transition
+- **Taille des cibles** : normale, grande, très grande
+- **Retour haptique** : vibration sur les actions
+- **Espacement du texte** : letter-spacing et word-spacing accrus
+- **Sous-titres audio** : affiche le texte lu par le TTS
 
 ---
 

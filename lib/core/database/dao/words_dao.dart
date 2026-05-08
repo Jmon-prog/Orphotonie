@@ -95,4 +95,9 @@ class WordsDao extends DatabaseAccessor<AppDatabase> with _$WordsDaoMixin {
   Future<void> upsertMastery(WordMasteryCompanion entry) async {
     await into(wordMastery).insertOnConflictUpdate(entry);
   }
+
+  /// Réinitialise la progression Leitner d'un profil :
+  /// supprime toutes les entrées WordMastery pour remettre les mots en boîte 1.
+  Future<int> resetProgressionForProfile(int profileId) =>
+      (delete(wordMastery)..where((wm) => wm.profileId.equals(profileId))).go();
 }

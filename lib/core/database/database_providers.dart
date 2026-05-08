@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_database.dart';
 import 'lexique4_database.dart';
 import 'definitions_database.dart';
+import '../../features/settings/services/profile_management_service.dart';
 
 // ---------------------------------------------------------------------------
 // app.db — base utilisateur (lecture/écriture)
@@ -37,6 +38,11 @@ final wordsDaoProvider = Provider(
 );
 final statsDaoProvider = Provider(
   (ref) => ref.watch(appDatabaseProvider).statsDao,
+);
+
+/// Provider du service de gestion des profils (archive, suppression, reset).
+final profileManagementServiceProvider = Provider<ProfileManagementService>(
+  (ref) => ProfileManagementService(ref.watch(appDatabaseProvider)),
 );
 
 // ---------------------------------------------------------------------------

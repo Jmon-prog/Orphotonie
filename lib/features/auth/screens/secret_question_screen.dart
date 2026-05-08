@@ -13,6 +13,7 @@ import 'package:go_router/go_router.dart';
 import '../notifiers/auth_notifier.dart';
 import '../services/pin_service.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 
 class SecretQuestionScreen extends ConsumerStatefulWidget {
   const SecretQuestionScreen({super.key});
@@ -86,8 +87,8 @@ class _SecretQuestionScreenState extends ConsumerState<SecretQuestionScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Récupération du PIN'),
+      appBar: ThemedAppBar(
+        title: 'Récupération du PIN',
         leading: BackButton(onPressed: () => context.go(AppRoutes.pin)),
       ),
       body: Center(

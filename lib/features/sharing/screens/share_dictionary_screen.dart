@@ -16,6 +16,7 @@ import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import '../../../core/sharing/share_encoder.dart';
 import '../../../core/sharing/sharing_providers.dart';
+import '../../../core/widgets/app_bar.dart';
 import 'qr_share_screen.dart';
 
 /// Écran de partage d'un dictionnaire.
@@ -320,20 +321,26 @@ class _ShareDictionaryScreenState extends ConsumerState<ShareDictionaryScreen> {
 
     if (_loading) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Partager')),
+        appBar: ThemedAppBar(
+          title: 'Partager',
+        ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     if (_dictionary == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Partager')),
+        appBar: ThemedAppBar(
+          title: 'Partager',
+        ),
         body: const Center(child: Text('Dictionnaire introuvable.')),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Partager « ${_dictionary!.nom} »')),
+      appBar: ThemedAppBar(
+        title: 'Partager «\u00a0${_dictionary!.nom}\u00a0»',
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isWide = constraints.maxWidth > 600;

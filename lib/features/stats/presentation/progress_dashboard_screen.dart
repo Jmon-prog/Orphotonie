@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../stats/data/stats_repository.dart';
 import '../../stats/stats_providers.dart';
 import '../pdf/progress_pdf_generator.dart';
+import '../../../core/widgets/app_bar.dart';
 import 'widgets/success_rate_bar.dart';
 import 'widgets/activity_heatmap.dart';
 import 'widgets/activity_chart.dart';
@@ -79,8 +80,8 @@ class _ProgressDashboardScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Progression de ${widget.childName}'),
+      appBar: ThemedAppBar(
+        title: 'Progression de ${widget.childName}',
         actions: [
           // Partage par URL
           Semantics(

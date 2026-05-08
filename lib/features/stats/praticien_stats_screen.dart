@@ -12,6 +12,10 @@ import 'package:go_router/go_router.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/database_providers.dart';
 import '../../core/router/app_router.dart';
+import '../../core/widgets/app_bar.dart';
+import '../../core/widgets/empty_state.dart';
+import '../../core/widgets/profile_avatar.dart';
+import '../../core/widgets/shimmer_list.dart';
 import 'presentation/progress_dashboard_screen.dart';
 
 /// Écran de suivi de progression — liste des enfants.
@@ -23,8 +27,8 @@ class PraticienStatsScreen extends ConsumerWidget {
     final dao = ref.watch(profilesDaoProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Progression des enfants'),
+      appBar: ThemedAppBar(
+        title: 'Progression des enfants',
         actions: [
           Semantics(
             label: 'Paramètres',
@@ -41,14 +45,18 @@ class PraticienStatsScreen extends ConsumerWidget {
         stream: dao.watchProfilesByType('enfant'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const ShimmerListView();
           }
           if (snapshot.hasError) {
             return Center(child: Text('Erreur : ${snapshot.error}'));
           }
           final children = snapshot.data ?? [];
           if (children.isEmpty) {
-            return _buildEmptyState(context);
+            return const EmptyState(
+              icon: Icons.child_care_outlined,
+              title: 'Aucun enfant',
+              description: 'Créez un profil enfant pour suivre sa progression.',
+            );
           }
           return LayoutBuilder(
             builder: (context, constraints) {
@@ -77,34 +85,6 @@ class PraticienStatsScreen extends ConsumerWidget {
       ),
     );
   }
-
-  Widget _buildEmptyState(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.child_care_outlined,
-            size: 80,
-            color: Theme.of(context).colorScheme.outline,
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'Aucun enfant',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'Créez un profil enfant pour\nsuivre sa progression.',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -119,9 +99,6 @@ class _ChildCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initials =
-        child.prenom.isNotEmpty ? child.prenom[0].toUpperCase() : '?';
-
     return Semantics(
       button: true,
       label: 'Voir la progression de ${child.prenom}',
@@ -140,18 +117,11 @@ class _ChildCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Row(
               children: [
-                CircleAvatar(
+                ProfileAvatar(
+                  profileId: child.id,
+                  prenom: child.prenom,
+                  avatarPath: child.avatarPath,
                   radius: 26,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  child: Text(
-                    initials,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(

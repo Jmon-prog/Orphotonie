@@ -10,6 +10,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
+import '../../../core/widgets/app_bar.dart';
+import '../../../core/widgets/empty_state.dart';
+import '../../../core/widgets/profile_avatar.dart';
+import '../../../core/widgets/shimmer_list.dart';
 
 /// Écran permettant au praticien d'assigner ou retirer un dictionnaire
 /// pour un ou plusieurs enfants.
@@ -30,17 +34,9 @@ class AssignDictionaryScreen extends ConsumerWidget {
         ref.watch(profilesDaoProvider).watchProfilesByType('enfant');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Assigner le dictionnaire'),
-            Text(
-              dictionary.nom,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-        ),
+      appBar: ThemedAppBar(
+        title: 'Assigner le dictionnaire',
+        subtitle: dictionary.nom,
       ),
       body: StreamBuilder<List<int>>(
         stream: assignedIdsStream,
@@ -50,43 +46,18 @@ class AssignDictionaryScreen extends ConsumerWidget {
             builder: (context, enfantsSnap) {
               if (enfantsSnap.connectionState == ConnectionState.waiting ||
                   assignedSnap.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const ShimmerListView();
               }
 
               final enfants = enfantsSnap.data ?? [];
               final assignedIds = assignedSnap.data ?? [];
 
               if (enfants.isEmpty) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.child_care_outlined,
-                          size: 64,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withAlpha(102),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Aucun profil enfant',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Créez d\'abord un profil enfant pour pouvoir assigner des dictionnaires.',
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
+                return const EmptyState(
+                  icon: Icons.child_care_outlined,
+                  title: 'Aucun profil enfant',
+                  description:
+                      'Créez d\'abord un profil enfant pour assigner des dictionnaires.',
                 );
               }
 
@@ -161,8 +132,10 @@ class _EnfantAssignTile extends ConsumerWidget {
       label:
           '${enfant.prenom} — ${isAssigned ? 'assigné' : 'non assigné'}. Appuyer pour basculer.',
       child: CheckboxListTile(
-        secondary: CircleAvatar(
-          child: Text(enfant.prenom[0].toUpperCase()),
+        secondary: ProfileAvatar(
+          profileId: enfant.id,
+          prenom: enfant.prenom,
+          avatarPath: enfant.avatarPath,
         ),
         title: Text(enfant.prenom),
         subtitle: isAssigned

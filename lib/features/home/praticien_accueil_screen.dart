@@ -11,8 +11,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../auth/notifiers/auth_notifier.dart';
+//import '../../core/database/app_database.dart' show Profile;
 import '../../core/database/database_providers.dart';
 import '../../core/router/app_router.dart';
+import '../../core/widgets/app_bar.dart';
+import '../../core/widgets/profile_avatar.dart';
 
 // ---------------------------------------------------------------------------
 // Provider — compteur de profils enfants
@@ -38,16 +41,18 @@ class PraticienAccueilScreen extends ConsumerWidget {
     final childCountAsync = ref.watch(_childCountProvider);
     final childCount = childCountAsync.valueOrNull ?? 0;
 
-    // Récupère l'ID du praticien connecté pour les routes nécessitant un profileId
+    // Récupère le profil du praticien connecté pour les routes nécessitant un profileId
     final auth = ref.watch(authNotifierProvider);
     final praticienId = auth is PractitionerAuth ? auth.profile.id : 0;
+    final praticienPrenom =
+        auth is PractitionerAuth ? auth.profile.prenom : 'Gestionnaire';
 
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accueil'),
+      appBar: ThemedAppBar(
+        title: 'Accueil',
         actions: [
           Semantics(
             label: 'Paramètres',
@@ -86,16 +91,10 @@ class PraticienAccueilScreen extends ConsumerWidget {
                     // ----- En-tête -----
                     Row(
                       children: [
-                        CircleAvatar(
+                        ProfileAvatar(
+                          profileId: praticienId,
+                          prenom: praticienPrenom,
                           radius: 30,
-                          backgroundColor: colorScheme.primaryContainer,
-                          child: Text(
-                            'G',
-                            style: textTheme.headlineSmall?.copyWith(
-                              color: colorScheme.onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -205,7 +204,7 @@ class PraticienAccueilScreen extends ConsumerWidget {
                           icon: Icons.qr_code_scanner_rounded,
                           color: Colors.teal,
                           label: 'Importer',
-                          onTap: () => context.go(
+                          onTap: () => context.push(
                             '${AppRoutes.importDic}?profileId=$praticienId',
                           ),
                         ),

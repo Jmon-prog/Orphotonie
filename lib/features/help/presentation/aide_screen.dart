@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../../auth/notifiers/auth_notifier.dart';
 import 'glossary_screen.dart';
 import 'onboarding_screen.dart';
@@ -33,8 +34,8 @@ class AideScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Aide'),
+      appBar: ThemedAppBar(
+        title: 'Aide',
         actions: [
           Semantics(
             label: 'Paramètres',

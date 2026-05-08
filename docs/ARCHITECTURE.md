@@ -25,7 +25,7 @@ Elle cible Android, Windows, macOS, iOS et Linux.
 │  ┌────▼──────────────────────────────────────────────┐   │
 │  │             DAOs (Drift)                          │   │
 │  │  ProfilesDao · DictionariesDao · WordsDao         │   │
-│  │  StatsDao                                         │   │
+│  │  DictionaryAssignmentsDao · StatsDao              │   │
 │  └────┬──────────────────────────────────────────────┘   │
 │       │                                                  │
 │  ┌────▼──────────────────────────────────────────────┐   │
@@ -46,8 +46,8 @@ lib/
 │   ├── accessibility/         # Helpers Semantics + Focus
 │   ├── audio/                 # TTS, retour sonore
 │   ├── database/
-│   │   ├── dao/               # 4 DAOs Drift
-│   │   ├── tables/            # 8 tables Drift
+│   │   ├── dao/               # 5 DAOs Drift
+│   │   ├── tables/            # 9 tables Drift
 │   │   ├── storage/           # Initialisation et copie DB
 │   │   ├── app_database.dart
 │   │   ├── lexique4_database.dart
@@ -60,12 +60,17 @@ lib/
 │   └── utils/                 # Constantes applicatives
 └── features/
     ├── auth/                  # Profils, PIN, onboarding
+    ├── decouverte/            # Mode Découverte (exploration libre)
     ├── dictionaries/          # CRUD dictionnaires
     ├── games/
     │   ├── anagram/           # Jeu Anagramme
     │   ├── crossword/         # Jeu Mots Croisés
+    │   ├── definition_qcm/    # Jeu QCM Définition
     │   ├── fill_blank/        # Jeu Mot Lacunaire
+    │   ├── flashcard/         # Jeu Flashcard Leitner
     │   ├── hangman/           # Jeu Pendu
+    │   ├── memory/            # Jeu Memory (paires mot↔définition)
+    │   ├── syllables/         # Jeu Roue des Syllabes
     │   └── word_search/       # Jeu Mots Cachés
     ├── help/                  # Aide contextuelle
     ├── search/                # Recherche Lexique 4
@@ -163,5 +168,5 @@ test/
 └── widget/            # Tests widget (accessibilité, UI)
 ```
 
-Couverture : logique des 5 jeux, encodeur/décodeur partage, DAOs, services SRS,
-contraste WCAG AA, sémantique d'accessibilité.
+Couverture : logique des 9 jeux, mode Découverte, encodeur/décodeur partage,
+DAOs, services SRS, contraste WCAG AA, sémantique d'accessibilité.

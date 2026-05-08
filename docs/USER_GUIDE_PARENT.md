@@ -20,15 +20,22 @@ de votre enfant pour accéder à son espace.
 
 ### 2. Choisir un jeu
 
-5 jeux sont disponibles :
+9 jeux sont disponibles :
 
 | Jeu | En quoi ça consiste ? |
 |-----|----------------------|
-| 🔤 **Anagramme** | Les lettres d'un mot sont mélangées, il faut les remettre dans l'ordre |
+| 🔤 **Anagramme** | Les lettres d’un mot sont mélangées, il faut les remettre dans l’ordre |
 | 🎯 **Pendu** | Deviner un mot en proposant des lettres une par une |
 | ✏️ **Mot à trous** | Compléter un mot dont certaines lettres sont cachées |
 | 🔍 **Mots cachés** | Retrouver des mots cachés dans une grille de lettres |
 | ➕ **Mots croisés** | Remplir une grille de mots croisés avec des indices |
+| 🎴 **Flashcard** | Retourner des cartes mot/définition et se juger |
+| 📝 **QCM Définition** | Choisir la bonne définition parmi 4 propositions |
+| 🔄 **Syllabes** | Remettre les syllabes d’un mot dans le bon ordre |
+| 🧠 **Memory** | Retrouver les paires mot ↔ définition sur un plateau |
+
+Un **mode Découverte** permet aussi à l’enfant d’explorer des mots nouveaux
+classsés par niveau scolaire, sans dictionnaire préalable.
 
 ### 3. Jouer
 

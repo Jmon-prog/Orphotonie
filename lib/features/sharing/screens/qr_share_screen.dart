@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import '../../../core/widgets/app_bar.dart';
 
 /// Écran d'affichage du QR Code d'un dictionnaire.
 ///
@@ -28,7 +29,9 @@ class QrShareScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text('QR Code — $dictionaryName')),
+      appBar: ThemedAppBar(
+        title: 'QR Code — $dictionaryName',
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final qrSize =

@@ -6,6 +6,7 @@
 // ============================================================
 
 import 'package:flutter/material.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../data/help_content.dart';
 import '../../search/presentation/search_screen.dart';
 
@@ -16,8 +17,8 @@ class PedagogicalGuideScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Guides pédagogiques'),
+      appBar: ThemedAppBar(
+        title: 'Guides pédagogiques',
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 8),

@@ -37,4 +37,8 @@ class Profiles extends Table {
 
   /// Date de création du profil.
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  /// Date d'archivage (null = profil actif). Un profil archivé n'apparaît
+  /// plus dans l'écran de connexion mais toutes ses données sont conservées.
+  DateTimeColumn get archivedAt => dateTime().nullable()();
 }

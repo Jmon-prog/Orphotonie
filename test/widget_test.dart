@@ -9,7 +9,8 @@ import 'package:orphotonie/core/audio/audio_providers.dart';
 import 'package:orphotonie/main.dart';
 
 void main() {
-  testWidgets('OrphothonieApp se lance sans erreur', (WidgetTester tester) async {
+  testWidgets('OrphothonieApp se lance sans erreur',
+      (WidgetTester tester) async {
     // On override ttsInitProvider pour éviter le timer issu de
     // Process.run().timeout() qui resterait en attente après le test.
     await tester.pumpWidget(

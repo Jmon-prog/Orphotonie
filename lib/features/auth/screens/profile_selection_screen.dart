@@ -11,6 +11,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/profile_avatar.dart';
+import '../../../core/widgets/shimmer_list.dart';
 import '../notifiers/auth_notifier.dart';
 import '../services/pin_service.dart';
 
@@ -51,7 +53,7 @@ class ProfileSelectionScreen extends ConsumerWidget {
                 stream: profilesStream,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const ShimmerGridView(itemCount: 4);
                   }
                   final profiles = snapshot.data ?? [];
 
@@ -173,20 +175,13 @@ class _ProfileCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Avatar emoji (si défini) ou initiale du prénom
-              CircleAvatar(
+              ProfileAvatar(
+                profileId: profile.id,
+                prenom: profile.prenom,
+                avatarPath: profile.avatarPath,
                 radius: 36,
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                child: Text(
-                  profile.avatarPath != null && profile.avatarPath!.isNotEmpty
-                      ? profile.avatarPath!
-                      : profile.prenom.substring(0, 1).toUpperCase(),
-                  style: profile.avatarPath != null &&
-                          profile.avatarPath!.isNotEmpty
-                      ? const TextStyle(fontSize: 32)
-                      : Theme.of(context).textTheme.headlineLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                ),
+                useHero:
+                    false, // Pas de Hero ici : l'écran enfant n'a pas de destinataire correspondant
               ),
               const SizedBox(height: 12),
               Text(

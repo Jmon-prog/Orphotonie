@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import '../notifiers/auth_notifier.dart';
 import '../services/pin_service.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 
 class ResetPinScreen extends ConsumerStatefulWidget {
   const ResetPinScreen({super.key});
@@ -79,7 +80,9 @@ class _ResetPinScreenState extends ConsumerState<ResetPinScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Nouveau PIN')),
+      appBar: ThemedAppBar(
+        title: 'Nouveau PIN',
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 480),

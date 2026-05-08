@@ -2,9 +2,21 @@
 
 ## Vue d'ensemble
 
-Orphotonie propose **5 jeux** pour travailler la conscience phonologique,
-l'orthographe et le vocabulaire. Chaque jeu s'appuie sur les mots du
-dictionnaire personnalisé de l'enfant.
+Orphotonie propose **9 jeux** et un **mode Découverte** pour travailler la
+conscience phonologique, l'orthographe et le vocabulaire. Chaque jeu s'appuie
+sur les mots du dictionnaire personnalisé de l'enfant.
+
+| # | Jeu | Compétence ciblée |
+|---|-----|-------------------|
+| 1 | Anagramme | Ordre des lettres |
+| 2 | Pendu | Reconnaissance de lettres |
+| 3 | Mot Lacunaire | Orthographe ciblée |
+| 4 | Mots Cachés | Reconnaissance visuelle |
+| 5 | Mots Croisés | Définitions + orthographe |
+| 6 | Flashcard Leitner | Mémorisation mot/définition |
+| 7 | QCM Définition | Compréhension lexicale |
+| 8 | Roue des Syllabes | Segmentation syllabique |
+| 9 | Memory | Association mot ↔ définition |
 
 ---
 
@@ -323,3 +335,129 @@ Après chaque tentative, le `LeitnerService` met à jour la boîte :
 
 - **Réussite** : boîte +1 (max 5), prochaine révision planifiée
 - **Échec** : retour en boîte 1, révision immédiate
+
+---
+
+## 6. Flashcard Leitner
+
+**Objectif** : mémoriser les mots et leurs définitions par retournement de cartes.
+
+### Fonctionnement
+
+1. La carte recto affiche le **mot**
+2. L'enfant tape la carte pour révéler le verso (**définition**)
+3. L'enfant juge : **« Je savais »** / **« Je ne savais pas »**
+4. Le `LeitnerService` met à jour la boîte du mot selon le jugement
+5. Animations de flip (400 ms, easeInOut)
+
+### Barème
+
+| Condition | Score |
+|-----------|-------|
+| Réponse correcte sans hésitation | 100 pts |
+| Réponse correcte | 70 pts |
+| Réponse incorrecte | 0 pts |
+
+---
+
+## 7. QCM Définition
+
+**Objectif** : choisir la bonne définition parmi 4 propositions.
+
+### Fonctionnement
+
+1. Un mot est affiché
+2. 4 définitions sont proposées (1 correcte + 3 distracteurs issus du même dictionnaire)
+3. Feedback couleur immédiat (vert = correct, rouge = incorrect)
+4. Passage automatique au mot suivant après le feedback
+
+### Barème
+
+| Condition | Score |
+|-----------|-------|
+| Bonne réponse au premier essai | 100 pts |
+| Mauvaise réponse | 0 pts |
+
+---
+
+## 8. Roue des Syllabes
+
+**Objectif** : reconstituer un mot en remettant ses syllabes dans le bon ordre.
+
+### Fonctionnement
+
+1. Les syllabes du mot sont affichées mélangées dans une rangée de boutons
+2. L'enfant tape les syllabes dans le bon ordre pour reconstituer le mot
+3. Feedback visuel vert/rouge après chaque syllabe
+4. Score affiché en fin de mot
+
+### Algorithme de découpe
+
+- Utilise le champ `syllphono` de Lexique 4 pour les mots issus du dictionnaire praticien
+- Découpe simple (voyelle = noyau) pour les autres
+
+### Barème
+
+| Condition | Score |
+|-----------|-------|
+| Aucune erreur | 100 pts |
+| 1 erreur | 60 pts |
+| 2 erreurs | 30 pts |
+| > 2 erreurs | 10 pts |
+
+---
+
+## 9. Memory (Jeu des paires)
+
+**Objectif** : retrouver les paires mot ↔ définition sur un plateau de cartes.
+
+### Fonctionnement
+
+1. Les cartes sont placées face cachée sur le plateau
+2. L'enfant retourne 2 cartes à la fois
+3. Si la carte mot correspond à la carte définition → paire trouvée, cartes retirées
+4. Sinon → les cartes sont re-cachées
+5. Le jeu se termine quand toutes les paires sont trouvées
+
+### Plateau
+
+- Entre 4 et 10 mots sélectionnés selon la difficulté
+- Cartes mot (fond coloré) + cartes définition (fond neutre)
+- Animation de retournement 3D (300 ms)
+
+### Barème
+
+| Condition | Score |
+|-----------|-------|
+| 0 erreur | 100 pts |
+| ≤ nb_mots erreurs | 70 pts |
+| > nb_mots erreurs | 40 pts |
+
+---
+
+## 10. Mode Découverte
+
+**Objectif** : explorer des mots nouveaux par niveau scolaire, sans dictionnaire préalable.
+
+### Fonctionnement
+
+1. **Configuration** : l'enfant choisit un cycle (CP→Terminale) et un nombre de mots (5/10/15)
+2. **Présentation** : chaque mot est présenté sur une carte avec sa définition (flip)
+   - L'enfant juge : « Je connais » / « Je découvre »
+3. **Parcours** : selon les jugements, des activités sont proposées (jeux avec les mots « découverts »)
+4. **Fin** : option de sauvegarder les mots comme nouveau dictionnaire
+
+### Cycles disponibles
+
+| Cycle | Niveaux Dubois-Buyse | Emoji |
+|-------|----------------------|-------|
+| Cycle 2 (CP→CE2) | 1–11 | 🐣 |
+| Cycle 3 (CM1→6ème) | 11–20 | 🌱 |
+| Collège (5ème→3ème) | 20–32 | 🚀 |
+| Lycée (2nde→Terminale) | 32–43 | 🎓 |
+| Surprise ! | 1–43 (aléatoire) | 🎲 |
+
+### Accès
+
+Disponible uniquement si `allowDiscoveryMode = true` sur le profil enfant
+(activé par défaut, désactivable par le praticien).

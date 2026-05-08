@@ -137,23 +137,31 @@ class DefinitionQcmNotifier extends StateNotifier<DefinitionQcmState> {
       final allWordsRaw =
           await wordsDao.watchWordsForDictionary(dictionaryId).first;
 
-      // Enrichir avec les définitions de definitions.db si absentes dans app.db
-      // Préférence : def_fleches (ne contient pas le mot) > def_croises > def_complete
+      // Résoudre la définition à afficher dans le QCM.
+      // Priorité : def_fleches (style mots fléchés, courte et sans le mot)
+      //          > def_croises (style mots croisés)
+      //          > def_complete (définition longue)
+      //          > définition saisie manuellement dans app.db
+      // On consulte toujours definitions.db en premier, indépendamment de
+      // ce qui est stocké dans app.db.
       final defDb = await _ref.read(definitionsProvider.future);
       Future<Word> enrich(Word w) async {
-        if (w.definition != null && w.definition!.trim().isNotEmpty) return w;
         try {
           final entry = await defDb.getDefinition(w.mot);
-          if (entry == null) return w;
-          final def = (entry.defFleches?.trim().isNotEmpty == true)
-              ? entry.defFleches
-              : (entry.defCroises?.trim().isNotEmpty == true)
-                  ? entry.defCroises
-                  : entry.definition;
-          if (def != null && def.trim().isNotEmpty) {
-            return w.copyWith(definition: Value(def));
+          if (entry != null) {
+            final def = (entry.defFleches?.trim().isNotEmpty == true)
+                ? entry.defFleches
+                : (entry.defCroises?.trim().isNotEmpty == true)
+                    ? entry.defCroises
+                    : (entry.definition?.trim().isNotEmpty == true)
+                        ? entry.definition
+                        : null;
+            if (def != null) {
+              return w.copyWith(definition: Value(def));
+            }
           }
         } catch (_) {}
+        // Repli : définition saisie manuellement dans app.db
         return w;
       }
 

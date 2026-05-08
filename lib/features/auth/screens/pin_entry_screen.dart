@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../notifiers/auth_notifier.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 
 class PinEntryScreen extends ConsumerStatefulWidget {
   const PinEntryScreen({super.key});
@@ -103,8 +104,8 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen>
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accès Praticien'),
+      appBar: ThemedAppBar(
+        title: 'Accès Praticien',
         leading: BackButton(onPressed: () => context.go(AppRoutes.profiles)),
       ),
       body: Center(

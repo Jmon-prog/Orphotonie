@@ -18,6 +18,8 @@ import '../../../core/database/database_providers.dart';
 import '../../../core/database/definitions_database.dart';
 import '../../../core/database/lexique4_database.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
+import '../../../core/widgets/shimmer_list.dart';
 import '../../../features/auth/notifiers/auth_notifier.dart';
 import '../services/media_service.dart';
 import '../../search/presentation/widgets/word_detail_card.dart';
@@ -523,7 +525,7 @@ class _WordListScreenState extends ConsumerState<WordListScreen> {
         stream: wordsStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const ShimmerListView();
           }
           if (snapshot.hasError) {
             return Center(child: Text('Erreur : ${snapshot.error}'));
@@ -712,18 +714,10 @@ class _WordListScreenState extends ConsumerState<WordListScreen> {
     );
   }
 
-  AppBar _defaultAppBar() {
-    return AppBar(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.dictionaryName),
-          Text(
-            'Gestion de la liste de mots',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ],
-      ),
+  PreferredSizeWidget _defaultAppBar() {
+    return ThemedAppBar(
+      title: widget.dictionaryName,
+      subtitle: 'Gestion de la liste de mots',
       actions: [
         Semantics(
           label: 'Imprimer ou exporter les exercices en PDF',
@@ -747,16 +741,16 @@ class _WordListScreenState extends ConsumerState<WordListScreen> {
     );
   }
 
-  AppBar _selectionAppBar() {
-    return AppBar(
+  PreferredSizeWidget _selectionAppBar() {
+    return ThemedAppBar(
+      automaticallyImplyLeading: false,
       leading: IconButton(
         icon: const Icon(Icons.close),
         tooltip: 'Fermer la sélection',
         onPressed: _clearSelection,
       ),
-      title: Text(
-        '${_selected.length} mot${_selected.length > 1 ? 's sélectionnés' : ' sélectionné'}',
-      ),
+      title:
+          '${_selected.length} mot${_selected.length > 1 ? 's sélectionnés' : ' sélectionné'}',
       actions: [
         TextButton(
           onPressed: _deleteSelected,

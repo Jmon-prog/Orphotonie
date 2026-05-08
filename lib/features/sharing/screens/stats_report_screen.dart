@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../core/sharing/stats_share_encoder.dart';
+import '../../../core/widgets/app_bar.dart';
 
 /// Écran de visualisation d'un rapport de progression partagé.
 ///
@@ -36,8 +37,8 @@ class StatsReportScreen extends StatelessWidget {
     final periodLabel = _periodLabels[snapshot.period] ?? snapshot.period;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Rapport — ${snapshot.childName}'),
+      appBar: ThemedAppBar(
+        title: 'Rapport — ${snapshot.childName}',
         actions: [
           Semantics(
             label: 'Copier le lien du rapport',

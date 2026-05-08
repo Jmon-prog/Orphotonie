@@ -5,6 +5,7 @@
 // ============================================================
 
 import 'package:flutter/material.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../data/help_content.dart';
 import 'widgets/glossary_entry.dart';
 
@@ -37,8 +38,8 @@ class _GlossaryScreenState extends State<GlossaryScreen> {
     final entries = _filteredEntries;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Glossaire'),
+      appBar: ThemedAppBar(
+        title: 'Glossaire',
       ),
       body: Column(
         children: [

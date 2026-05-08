@@ -12,6 +12,9 @@ import 'package:go_router/go_router.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
+import '../../../core/widgets/empty_state.dart';
+import '../../../core/widgets/shimmer_list.dart';
 import '../../../features/auth/notifiers/auth_notifier.dart';
 import 'add_edit_dictionary_screen.dart';
 import 'assign_dictionary_screen.dart';
@@ -64,17 +67,9 @@ class DictionaryListScreen extends ConsumerWidget {
         .watchDictionariesForPractitioner(profile.id);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Mes Dictionnaires'),
-            Text(
-              '${profile.prenom} ${profile.nom ?? ''}',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-        ),
+      appBar: ThemedAppBar(
+        title: 'Mes Dictionnaires',
+        subtitle: '${profile.prenom} ${profile.nom ?? ''}',
         actions: [
           Semantics(
             label: 'Paramètres',
@@ -101,7 +96,7 @@ class DictionaryListScreen extends ConsumerWidget {
         stream: dicsStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const ShimmerGridView();
           }
           if (snapshot.hasError) {
             return Center(
@@ -111,7 +106,14 @@ class DictionaryListScreen extends ConsumerWidget {
           final dics = snapshot.data ?? [];
 
           if (dics.isEmpty) {
-            return _EmptyState(profileId: profile.id);
+            return EmptyState(
+              icon: Icons.library_books_outlined,
+              title: 'Aucun dictionnaire',
+              description:
+                  'Créez votre premier dictionnaire pour ajouter des mots.',
+              actionLabel: 'Créer un dictionnaire',
+              onAction: () => context.go(AppRoutes.newDictionary),
+            );
           }
 
           return LayoutBuilder(
@@ -451,56 +453,6 @@ class _DictionaryCard extends ConsumerWidget {
                 ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// État vide
-// ---------------------------------------------------------------------------
-
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.profileId});
-  final int profileId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.library_books_outlined,
-              size: 80,
-              color: Theme.of(context).colorScheme.primary.withAlpha(102),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Aucun dictionnaire',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Créez votre premier dictionnaire pour commencer à\najouter des mots pour l\'enfant.',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 24),
-            FilledButton.icon(
-              icon: const Icon(Icons.add),
-              label: const Text('Créer un dictionnaire'),
-              onPressed: () => Navigator.of(context).push<bool>(
-                MaterialPageRoute(
-                  builder: (_) => AddEditDictionaryScreen(profileId: profileId),
-                  fullscreenDialog: true,
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );

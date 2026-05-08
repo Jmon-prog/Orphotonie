@@ -27,11 +27,31 @@ class ProfilesDao extends DatabaseAccessor<AppDatabase>
   Stream<List<Profile>> watchAllProfiles() =>
       (select(profiles)..orderBy([(p) => OrderingTerm.asc(p.prenom)])).watch();
 
-  /// Flux réactif des profils d'un type donné ('praticien' | 'enfant').
+  /// Flux réactif des profils actifs (non archivés) d'un type donné.
   Stream<List<Profile>> watchProfilesByType(String type) => (select(profiles)
-        ..where((p) => p.type.equals(type))
+        ..where(
+          (p) => p.type.equals(type) & p.archivedAt.isNull(),
+        )
         ..orderBy([(p) => OrderingTerm.asc(p.prenom)]))
       .watch();
+
+  /// Flux réactif des enfants actifs (non archivés) d'un praticien.
+  Stream<List<Profile>> watchActiveChildrenOfPractitioner(int praticienId) =>
+      (select(profiles)
+            ..where(
+              (p) => p.parentId.equals(praticienId) & p.archivedAt.isNull(),
+            )
+            ..orderBy([(p) => OrderingTerm.asc(p.prenom)]))
+          .watch();
+
+  /// Flux réactif des enfants archivés d'un praticien.
+  Stream<List<Profile>> watchArchivedChildrenOfPractitioner(int praticienId) =>
+      (select(profiles)
+            ..where(
+              (p) => p.parentId.equals(praticienId) & p.archivedAt.isNotNull(),
+            )
+            ..orderBy([(p) => OrderingTerm.asc(p.prenom)]))
+          .watch();
 
   /// Récupère un profil par son identifiant. Null si absent.
   Future<Profile?> getProfileById(int id) =>
@@ -50,6 +70,20 @@ class ProfilesDao extends DatabaseAccessor<AppDatabase>
   /// Supprime un profil par son identifiant.
   Future<int> deleteProfile(int id) =>
       (delete(profiles)..where((p) => p.id.equals(id))).go();
+
+  /// Archive un profil enfant (le masque de l'écran de connexion).
+  Future<void> archiveProfile(int id) async {
+    await (update(profiles)..where((p) => p.id.equals(id))).write(
+      ProfilesCompanion(archivedAt: Value(DateTime.now())),
+    );
+  }
+
+  /// Restaure un profil archivé (redevient visible à la connexion).
+  Future<void> unarchiveProfile(int id) async {
+    await (update(profiles)..where((p) => p.id.equals(id))).write(
+      const ProfilesCompanion(archivedAt: Value(null)),
+    );
+  }
 
   // --- Authentification PIN ---
 

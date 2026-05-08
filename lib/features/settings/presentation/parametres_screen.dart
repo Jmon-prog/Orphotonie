@@ -13,10 +13,12 @@ import 'package:go_router/go_router.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/child_themes.dart';
 import '../../../core/theme/theme_providers.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../../auth/notifiers/auth_notifier.dart';
 import '../../auth/services/pin_service.dart';
 import '../../help/presentation/glossary_screen.dart';
 import '../../help/presentation/onboarding_screen.dart';
+import 'widgets/gestion_donnees_section.dart';
 
 /// Écran des paramètres de l'application.
 class ParametresScreen extends ConsumerWidget {
@@ -35,8 +37,8 @@ class ParametresScreen extends ConsumerWidget {
     final isPractitioner = auth is PractitionerAuth;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Paramètres'),
+      appBar: ThemedAppBar(
+        title: 'Paramètres',
         leading: BackButton(
           onPressed: () {
             if (context.canPop()) {
@@ -873,6 +875,14 @@ class ParametresScreen extends ConsumerWidget {
                     ),
 
                     const SizedBox(height: 24),
+
+                    // =========================================================
+                    // GESTION DES PROFILS (praticien uniquement)
+                    // =========================================================
+                    if (isPractitioner) ...[
+                      GestionDonneesSection(praticienId: profileId),
+                      const SizedBox(height: 24),
+                    ],
 
                     // =========================================================
                     // À PROPOS

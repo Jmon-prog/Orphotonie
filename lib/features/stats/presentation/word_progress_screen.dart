@@ -5,6 +5,7 @@
 //               Responsive. Accessible. 100 % hors-ligne.
 // ============================================================
 
+import '../../../core/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/database/app_database.dart';
@@ -67,8 +68,8 @@ class _WordProgressScreenState extends ConsumerState<WordProgressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.mot),
+      appBar: ThemedAppBar(
+        title: widget.mot,
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())

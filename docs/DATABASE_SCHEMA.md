@@ -7,8 +7,8 @@ L'application utilise **3 bases SQLite** :
 | Base | Accès | Contenu | Localisation |
 |------|-------|---------|--------------|
 | `app.db` | Lecture/écriture | Données utilisateur, progression, paramètres | `{documents}/orphotonie/db/app.db` |
-| `lexique4.db` | Lecture seule | 189 863 mots du lexique français | Copié depuis `assets/data/` |
-| `definitions.db` | Lecture seule | 3 726 définitions + niveaux Dubois-Buyse | Copié depuis `assets/data/` |
+| `lexique4.db` | Lecture seule | **4 973 lemmes** du lexique français (version allégée pré-filtrée, 0,71 Mo) | Copié depuis `assets/data/` |
+| `definitions.db` | Lecture seule | 3 725 définitions + niveaux Dubois-Buyse | Copié depuis `assets/data/` |
 
 ---
 
@@ -25,9 +25,22 @@ L'application utilise **3 bases SQLite** :
 │ nom?        │  │    │ nom              │       │ mot          │
 │ avatarPath? │  │    │ description?     │       │ definition?  │
 │ type        │  │    │ couleur          │       │ defCroises?  │
-│ pinHash?    │  │    │ icon             │       │ defFleches?  │
-│ createdAt   │  │    │ active           │       │ imagePath?   │
-└─────────────┘  │    │ createdAt        │       │ audioPath?   │
+│ parentId?   │  │    │ icon             │       │ defFleches?  │
+│ allowDiscov.│  │    │ active           │       │ imagePath?   │
+│ pinHash?    │  │    │ createdAt        │       │ audioPath?   │
+│ createdAt   │  │    └──────────────────┘       │ tags         │
+└─────────────┘  │         │                       │ difficulty   │
+                 │         ┌──────────────────┐ │ createdAt    │
+                 │         │DictionaryAssign. │ └──────────────┘
+                 │         ├──────────────────┤        │
+                 │    ┌───┤ PK id            │ ┌────▼─────┐
+                 │    │───│ FK dictionaryId  │ │WordMastery│
+                 │    │   │ FK childId       │ ├───────────┤
+                 │    │   │ assignedAt       │ │ PK id    │
+                 │    │   └──────────────────┘ │FK profId │
+                 │    │  UNIQUE(dicId,childId)│FK wordId │
+                 │    │                       │ ...(voir) │
+                 │    │                       └───────────┘
                  │    └──────────────────┘       │ tags         │
                  │                               │ difficulty   │
                  │    ┌──────────────────┐       │ createdAt    │
@@ -83,6 +96,7 @@ L'application utilise **3 bases SQLite** :
 | `avatar_path` | TEXT | nullable | Chemin vers l'avatar local |
 | `type` | TEXT | default `'enfant'` | `'praticien'` ou `'enfant'` |
 | `parent_id` | INTEGER | nullable, FK → profiles.id | Id du praticien parent (null si praticien) |
+| `allow_discovery_mode` | INTEGER (bool) | default 1 | Mode Découverte accessible à l’enfant |
 | `pin_hash` | TEXT | nullable | Hash SHA-256 du PIN praticien |
 | `created_at` | INTEGER (epoch) | default CURRENT_TIMESTAMP | Date de création |
 
@@ -98,6 +112,20 @@ L'application utilise **3 bases SQLite** :
 | `icon` | TEXT | default `'book'` | Nom de l'icône Material |
 | `active` | INTEGER (bool) | default 1 | 0 = archivé |
 | `created_at` | INTEGER (epoch) | default CURRENT_TIMESTAMP | Date de création |
+
+#### DictionaryAssignments
+
+Table de liaison entre un dictionnaire (propriété du praticien) et les enfants
+qui y ont accès. Un dictionnaire peut être assigné à plusieurs enfants.
+
+| Colonne | Type | Contrainte | Description |
+|---------|------|------------|-------------|
+| `id` | INTEGER | PK, auto-increment | Identifiant unique |
+| `dictionary_id` | INTEGER | FK → dictionaries.id | Dictionnaire assigné |
+| `child_id` | INTEGER | FK → profiles.id | Enfant bénéficiaire |
+| `assigned_at` | INTEGER (epoch) | default CURRENT_TIMESTAMP | Date d'assignation |
+
+**Contrainte unique** : `(dictionary_id, child_id)`
 
 #### Words
 
@@ -188,6 +216,14 @@ L'application utilise **3 bases SQLite** :
 | `sound_enabled` | INTEGER (bool) | default 1 | Retour sonore actif |
 | `session_duration_limit_min` | INTEGER | default 0 | Limite session (0 = illimité) |
 | `onboarding_done` | INTEGER (bool) | default 0 | Onboarding terminé |
+| `dyslexic_font` | INTEGER (bool) | default 0 | Police OpenDyslexic activée |
+| `high_contrast` | INTEGER (bool) | default 0 | Mode contraste élevé |
+| `color_blind_mode` | TEXT | default `'none'` | `'none'`, `'deuteranopia'`, `'protanopia'`, `'tritanopia'` |
+| `reduce_animations` | INTEGER (bool) | default 0 | Réduire les animations |
+| `large_targets` | TEXT | default `'normal'` | `'normal'`, `'large'`, `'xlarge'` |
+| `haptic_feedback` | INTEGER (bool) | default 1 | Retour haptique activé |
+| `text_spacing` | INTEGER (bool) | default 0 | Espacement texte dyslexie |
+| `show_captions` | INTEGER (bool) | default 0 | Sous-titres audio affichés |
 
 ### Historique des migrations
 
@@ -197,6 +233,9 @@ L'application utilise **3 bases SQLite** :
 | 2 → 3 | Ajout `tts_rate`, `tts_volume` dans AppSettings |
 | 3 → 4 | Ajout `child_theme_name` dans AppSettings |
 | 4 → 5 | Ajout `parent_id` dans Profiles |
+| 5 → 6 | Création table `DictionaryAssignments` ; migration des dictionnaires enfant vers praticien |
+| 6 → 7 | Ajout colonnes accessibilité dans AppSettings (`dyslexic_font`, `high_contrast`, `color_blind_mode`, `reduce_animations`, `large_targets`, `haptic_feedback`, `text_spacing`, `show_captions`) |
+| 7 → 8 | Ajout `allow_discovery_mode` dans Profiles |
 
 ### Migration Drift : Ajout du champ parentId (liaison enfant/praticien)
 
@@ -287,13 +326,14 @@ Remplace `X` par la version précédente de ta base.
 | `morphodecomp` | TEXT | Décomposition morphologique |
 | `nbhomoph` | INTEGER | Nombre d'homophones |
 
-> ⚠️ **Règle absolue** : toutes les requêtes doivent filtrer `WHERE islem = 1`.
+> ⚠️ **Note** : la version embarquée `lexique4.db` est pré-filtrée (uniquement `islem = 1`).
+> Aucune requête supplémentaire sur ce champ n’est nécessaire dans l’application.
 
 ---
 
 ## definitions.db — Définitions (lecture seule)
 
-**3 726 entrées** — Définitions + échelle Dubois-Buyse (niveaux 1–43).
+**3 725 entrées** — Définitions + échelle Dubois-Buyse (niveaux 1–43).
 
 | Colonne | Type | Description |
 |---------|------|-------------|

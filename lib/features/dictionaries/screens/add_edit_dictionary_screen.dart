@@ -13,6 +13,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/widgets/app_bar.dart';
 
 // ---------------------------------------------------------------------------
 // Constantes
@@ -166,9 +167,8 @@ class _AddEditDictionaryScreenState
     final theme = Theme.of(context);
     // RÃ©cupÃ¨re la liste des enfants (profils)
     return Scaffold(
-      appBar: AppBar(
-        title:
-            Text(_isEdit ? 'Modifier le dictionnaire' : 'Nouveau dictionnaire'),
+      appBar: ThemedAppBar(
+        title: _isEdit ? 'Modifier le dictionnaire' : 'Nouveau dictionnaire',
         actions: [
           Semantics(
             label: 'Enregistrer le dictionnaire',

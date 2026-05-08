@@ -14,6 +14,9 @@ import 'package:go_router/go_router.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/database_providers.dart';
 import '../../core/router/app_router.dart';
+import '../../core/widgets/app_bar.dart';
+import '../../core/widgets/empty_state.dart';
+import '../../core/widgets/shimmer_list.dart';
 import '../auth/notifiers/auth_notifier.dart';
 
 /// Écran "Jeux" — liste les dictionnaires et propose les activités
@@ -30,8 +33,8 @@ class PraticienJeuxScreen extends ConsumerWidget {
     };
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Jeux'),
+      appBar: ThemedAppBar(
+        title: 'Jeux',
         actions: [
           Semantics(
             label: 'Paramètres',
@@ -45,7 +48,7 @@ class PraticienJeuxScreen extends ConsumerWidget {
         ],
       ),
       body: profile == null
-          ? const Center(child: CircularProgressIndicator())
+          ? const ShimmerListView()
           : _DictionaryPrintList(profile: profile),
     );
   }
@@ -71,47 +74,19 @@ class _DictionaryPrintList extends ConsumerWidget {
       stream: dicsAsync,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const ShimmerListView();
         }
 
         final dics = snapshot.data ?? [];
 
         if (dics.isEmpty) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.assignment_outlined,
-                    size: 72,
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Aucun dictionnaire',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Créez un dictionnaire de mots dans l\'espace\n'
-                    '"Dictionnaires" pour lancer les jeux.',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 24),
-                  FilledButton.icon(
-                    icon: const Icon(Icons.menu_book_outlined),
-                    label: const Text('Aller aux dictionnaires'),
-                    onPressed: () =>
-                        context.go(AppRoutes.praticienDictionnaires),
-                  ),
-                ],
-              ),
-            ),
+          return EmptyState(
+            icon: Icons.assignment_outlined,
+            title: 'Aucun dictionnaire',
+            description:
+                "Créez un dictionnaire dans l'espace Dictionnaires pour lancer les jeux.",
+            actionLabel: 'Aller aux dictionnaires',
+            onAction: () => context.go(AppRoutes.praticienDictionnaires),
           );
         }
 

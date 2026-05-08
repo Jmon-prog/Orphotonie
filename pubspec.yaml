@@ -2,7 +2,7 @@ name: orphotonie
 description: "Application d'orthophonie multiplateforme 100% hors ligne pour orthophonistes et parents."
 publish_to: 'none'
 
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
@@ -52,6 +52,7 @@ dependencies:
   # --- UI ---
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1         # Nunito + Baloo2 — chargées depuis assets (offline)
+  shimmer: ^3.0.0              # Skeleton loading pour les listes en cours de chargement
 
   # --- Design adaptatif & Desktop ---
   window_manager: ^0.3.9       # Taille minimale + titre fenêtre (Windows/macOS/Linux)

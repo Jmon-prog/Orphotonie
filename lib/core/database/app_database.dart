@@ -1,7 +1,7 @@
 ﻿// ============================================================
 // Fichier : lib/core/database/app_database.dart
 // Description : Base de donnees utilisateur (app.db) avec Drift.
-//               Contient les 8 tables de donnees utilisateur.
+//               Contient les 9 tables de donnees utilisateur.
 //               Lecture/ecriture  100% hors ligne.
 // ============================================================
 
@@ -53,7 +53,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.connection);
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -126,6 +126,10 @@ class AppDatabase extends _$AppDatabase {
             await customStatement(
               'ALTER TABLE profiles ADD COLUMN allow_discovery_mode INTEGER NOT NULL DEFAULT 1',
             );
+          }
+          // Migration v8 -> v9 : ajout archivedAt dans Profiles
+          if (from < 9) {
+            await m.addColumn(profiles, profiles.archivedAt);
           }
         },
         beforeOpen: (details) async {

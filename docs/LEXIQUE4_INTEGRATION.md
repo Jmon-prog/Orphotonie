@@ -3,9 +3,10 @@
 ## Présentation
 
 **Lexique 4** (New, Pallier, Brysbaert & Ferrand, 2026) est une base de données
-lexicales du français, librement disponible pour la recherche et l'éducation.
-Elle contient **189 863 formes orthographiques** avec des informations
-phonologiques, morphologiques et fréquentielles.
+lexicales du français, librement disponible pour la recherche et l’éducation.
+La version complète contient **189 863 formes orthographiques** ; l’application
+embarque une **version allégée pré-filtrée de 4 973 lemmes** (uniquement les
+entrées ayant une définition Dubois-Buyse, 0,71 Mo).
 
 Site officiel : [www.lexique.org](http://www.lexique.org)
 
@@ -39,13 +40,29 @@ Site officiel : [www.lexique.org](http://www.lexique.org)
 
 ---
 
-## Filtre obligatoire : `islem = 1`
+## Version embarquée vs version complète
 
-La base contient des formes fléchies (« mangeons », « mangé », « mangerais »…)
-en plus des lemmes (« manger »). Pour éviter les doublons et garder une
-entrée par mot, **toutes les requêtes filtrent `WHERE islem = 1`**.
+| | Version complète | Version embarquée (lexique4.db) |
+|-|-----------------|----------------------------------|
+| Entrées | 189 863 formes | **4 973 lemmes** |
+| Filtre islem | à appliquer | déjà appliqué |
+| Filtre définition | non | oui (jointure `definitions.db`) |
+| Taille | ~25 Mo | **0,71 Mo** |
 
-Cela réduit l'espace de recherche à environ 55 000 lemmes uniques.
+La base embarquée `lexique4.db` est **prise en charge depuis l’étape de build** :
+ell ne contient que les lemmes (`islem = 1`) possédant une définition
+Dubois-Buyse. **Aucun filtre `islem` ni filtre de définition n’est
+nécessaire dans les requêtes applicatives.**
+
+---
+
+## Filtre `islem` — note
+
+Dans la version complète de Lexique 4, la colonne `islem = 1` identifie
+les formes lemmes (une entrée par mot, sans formes fléchies). La version
+embarquée étant déjà pré-filtrée, **les requêtes SQL dans l’app n’ont pas
+beson d’un `WHERE islem = 1`**. Les exemples ci-dessous conservent ce
+filtre à titre de référence uniquement.
 
 ---
 

@@ -14,6 +14,7 @@ import '../../../core/database/app_database.dart';
 import '../../../core/database/database_providers.dart';
 import 'package:drift/drift.dart' show Value;
 import '../../../core/database/lexique4_database.dart';
+import '../../../core/widgets/app_bar.dart';
 import '../../../features/dictionaries/services/definitions_service.dart';
 import '../search_providers.dart';
 import 'widgets/filter_panel.dart';
@@ -250,10 +251,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     SearchState state,
     SearchNotifier notifier,
   ) {
-    return AppBar(
+    return ThemedAppBar(
       title: widget.dictionaryName != null
-          ? Text('Recherche → ${widget.dictionaryName}')
-          : const Text('Recherche dictionnaire'),
+          ? 'Recherche → ${widget.dictionaryName}'
+          : 'Recherche dictionnaire',
       actions: [
         // Compteur de mots sélectionnés
         if (state.selected.isNotEmpty)

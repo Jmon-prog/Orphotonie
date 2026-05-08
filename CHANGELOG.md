@@ -3,6 +3,33 @@
 Toutes les modifications notables de ce projet sont documentées ici.
 Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
+## [0.2.0] - 2026-05-08
+
+### Ajouté
+
+- Nouveaux widgets partagés : `AppSpacing`, `AppRadius`, `ThemedAppBar`, `EmptyState`, `ShimmerListView`, `ShimmerGridView`, `AnimatedCounter`, `ScoreBadge`, `ProfileAvatar`, `ProfileAvatarWithBadge`
+- Barre d'accent dégradée (primary → secondary) sous chaque AppBar via `ThemedAppBar`
+- États vides illustrés (`EmptyState`) sur toutes les listes
+- Squelettes de chargement shimmer remplaçant les indicateurs de progression circulaires
+- Compteur animé `AnimatedCounter` pour les scores de jeux
+
+### Modifié
+
+- Refonte complète du thème Material 3 (`app_theme.dart`) : hiérarchie de boutons, tokens d'espacement, cartes, dialogues, navigation
+- `AppColors` : palette douce accessible (WCAG AA) — constantes centralisées
+- Mise à jour vers schéma Drift v9 avec colonne `archivedAt` sur les profils
+- `ThemedAppBar` câblé sur l'ensemble des écrans praticien (24+)
+- `ProfileAvatar` avec Hero animation câblé dans la sélection de profil et les fiches
+- `ShimmerGridView` remplace le `CircularProgressIndicator` dans la sélection de profil enfant
+- `EmptyState` câblé dans les listes de dictionnaires, mots, statistiques et résultats de recherche
+- Documentation Dart (`///`) complète sur tous les nouveaux widgets et classes publiques
+
+### Corrigé
+
+- Remplacement de `Color.withValues()` (non disponible dans la version Flutter utilisée) par `withOpacity()` dans tous les fichiers
+- Paramètre `subtitle` manquant dans `ThemedAppBar` ajouté (rendu en `Column`)
+- 13 erreurs de compilation initiales résolues (Drift codegen, API PinService, imports inutilisés)
+
 ## [0.1.0] - 2026-04-20
 
 ### Ajouté
