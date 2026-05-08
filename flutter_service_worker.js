@@ -47,7 +47,7 @@ const RESOURCES = {"assets/assets/sounds/encouragement_1.mp3": "e936fe6c4cd92107
 "canvaskit/skwasm.js": "694fda5704053957c2594de355805228",
 "flutter.js": "f393d3c16b631f36852323de8e583132",
 "coi-serviceworker.js": "d1437e8e20d02118331225aae09fd865",
-"flutter_bootstrap.js": "69c34790a771cdad26ff06c4cbd43b4d",
+"flutter_bootstrap.js": "faf3f0c5d29c5d7cbd045b7034574701",
 "main.dart.js": "c14331bab67d8bb77b56ed605b8383a1",
 "version.json": "576a80567587249354080d4fa69a1a33",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
