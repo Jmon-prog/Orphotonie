@@ -1,9 +1,9 @@
 {
-    "id": "/",
+    "id": "/Orphotonie/",
     "name": "Orphotonie",
     "short_name": "Orphotonie",
-    "start_url": "/",
-    "scope": "/",
+    "start_url": "/Orphotonie/",
+    "scope": "/Orphotonie/",
     "display": "standalone",
     "display_override": [
         "window-controls-overlay",
