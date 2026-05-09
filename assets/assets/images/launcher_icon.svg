@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Fond carré arrondi violet -->
+  <rect width="1024" height="1024" rx="220" ry="220" fill="#6750A4"/>
+
+  <!-- Bulle de parole blanche -->
+  <path d="
+    M 200 180
+    Q 180 180 180 200
+    L 180 650
+    Q 180 670 200 670
+    L 380 670
+    L 320 820
+    L 530 670
+    L 824 670
+    Q 844 670 844 650
+    L 844 200
+    Q 844 180 824 180
+    Z
+  " fill="white"/>
+
+  <!-- Onde sonore — 3 barres (barre centrale plus haute) centrées dans la bulle -->
+  <!-- Barre gauche -->
+  <rect x="355" y="355" width="72" height="250" rx="36" ry="36" fill="#6750A4"/>
+  <!-- Barre centrale (plus haute) -->
+  <rect x="476" y="290" width="72" height="380" rx="36" ry="36" fill="#6750A4"/>
+  <!-- Barre droite -->
+  <rect x="597" y="355" width="72" height="250" rx="36" ry="36" fill="#6750A4"/>
+</svg>
