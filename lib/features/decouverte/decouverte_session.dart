@@ -131,6 +131,27 @@ const kDecouverteActivities = [
     color: 0xFF5ABDE0,
     description: 'Remets les syllabes dans le bon ordre',
   ),
+  DecouverteActivity(
+    route: '/mot-lacunaire',
+    label: 'Mot lacunaire',
+    icon: 'mot_lacunaire',
+    color: 0xFFE0A05A,
+    description: 'Complète le mot avec les lettres manquantes',
+  ),
+  DecouverteActivity(
+    route: '/mots-caches',
+    label: 'Mots cachés',
+    icon: 'mots_caches',
+    color: 0xFF5AE07A,
+    description: 'Retrouve les mots dans la grille',
+  ),
+  DecouverteActivity(
+    route: '/mots-croises',
+    label: 'Mots croisés',
+    icon: 'mots_croises',
+    color: 0xFFE05AB0,
+    description: 'Complète la grille de mots croisés',
+  ),
 ];
 
 // ---------------------------------------------------------------------------

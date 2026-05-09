@@ -425,6 +425,12 @@ class _ActivityTile extends StatelessWidget {
         return Icons.text_fields_rounded;
       case 'syllabes':
         return Icons.record_voice_over_rounded;
+      case 'mot_lacunaire':
+        return Icons.edit_rounded;
+      case 'mots_caches':
+        return Icons.search_rounded;
+      case 'mots_croises':
+        return Icons.grid_on_rounded;
       default:
         return Icons.games_rounded;
     }
