@@ -30,9 +30,40 @@ class ProfileSelectionScreen extends ConsumerWidget {
         child: Column(
           children: [
             const SizedBox(height: 40),
-            // Titre
+            // Icône + titre
+            Semantics(
+              label: 'Orphotonie',
+              image: true,
+              child: Container(
+                width: 88,
+                height: 88,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.28),
+                      blurRadius: 20,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(22),
+                  child: Image.asset(
+                    'assets/images/launcher_icon.png',
+                    width: 88,
+                    height: 88,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             Text(
-              '🦜 Orphotonie',
+              'Orphotonie',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 8),
