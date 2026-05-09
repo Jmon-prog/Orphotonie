@@ -267,8 +267,8 @@ void main() {
 
   // ── kDecouverteActivities ─────────────────────────────────────────────────
   group('kDecouverteActivities', () {
-    test('contient 6 activités', () {
-      expect(kDecouverteActivities.length, equals(6));
+    test('contient 9 activités', () {
+      expect(kDecouverteActivities.length, equals(9));
     });
 
     test('aucune route en double', () {
