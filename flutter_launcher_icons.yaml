@@ -1,0 +1,31 @@
+flutter_launcher_icons:
+  # ── Image source (PNG 1024×1024, fond transparent) ──────────────────────
+  image_path: "assets/images/launcher_icon.png"
+
+  # ── Android ─────────────────────────────────────────────────────────────
+  android: true
+  # Icône adaptative Android 8+ : fond uni violet, icône au centre
+  adaptive_icon_background: "#6750A4"
+  adaptive_icon_foreground: "assets/images/launcher_icon_foreground.png"
+
+  # ── iOS ──────────────────────────────────────────────────────────────────
+  ios: true
+  remove_alpha_ios: true   # l'App Store interdit la transparence sur iOS
+
+  # ── Web ──────────────────────────────────────────────────────────────────
+  web:
+    generate: true
+    image_path: "assets/images/launcher_icon.png"
+    background_color: "#6750A4"
+    theme_color: "#6750A4"
+
+  # ── Windows ──────────────────────────────────────────────────────────────
+  windows:
+    generate: true
+    image_path: "assets/images/launcher_icon.png"
+    icon_size: 48
+
+  # ── macOS ────────────────────────────────────────────────────────────────
+  macos:
+    generate: true
+    image_path: "assets/images/launcher_icon.png"

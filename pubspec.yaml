@@ -71,6 +71,9 @@ dev_dependencies:
   flutter_lints: ^4.0.0        # Règles lint recommandées Flutter
   mocktail: ^1.0.4             # Mocks pour tests unitaires (sans réseau)
 
+  # --- Génération d'icônes ---
+  flutter_launcher_icons: ^0.14.3  # Génère toutes les icônes (Android/iOS/Web/Desktop)
+
 # Résolution de conflit record_linux 0.7.2 / record_platform_interface 1.5.0
 dependency_overrides:
   record_linux: ^1.3.0
