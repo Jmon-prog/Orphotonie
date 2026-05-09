@@ -51,7 +51,6 @@ dependencies:
 
   # --- UI ---
   cupertino_icons: ^1.0.8
-  google_fonts: ^6.3.1         # Nunito + Baloo2 — chargées depuis assets (offline)
   shimmer: ^3.0.0              # Skeleton loading pour les listes en cours de chargement
 
   # --- Design adaptatif & Desktop ---
