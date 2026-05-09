@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'core/audio/audio_providers.dart';
 import 'core/database/storage/database_initializer.dart';
 import 'core/layout/window_config.dart';
@@ -16,10 +15,6 @@ import 'core/theme/theme_providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Désactive le chargement réseau des polices — app 100% hors ligne.
-  // Les polices sont déclarées dans pubspec.yaml et chargées depuis les assets.
-  GoogleFonts.config.allowRuntimeFetching = false;
 
   // Copie les DB embarquées vers documents au 1er lancement (hors ligne)
   await DatabaseInitializer.init();

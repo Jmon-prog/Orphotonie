@@ -9,7 +9,6 @@
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../database/app_database.dart';
 import '../database/database_providers.dart';
@@ -422,7 +421,8 @@ ThemeData _buildPractitionerTheme(Brightness brightness, double fontScale) {
       backgroundColor: colorScheme.primary,
       foregroundColor: colorScheme.onPrimary,
       centerTitle: true,
-      titleTextStyle: GoogleFonts.baloo2(
+      titleTextStyle: TextStyle(
+        fontFamily: 'Baloo2',
         fontSize: 22 * fontScale,
         fontWeight: FontWeight.w600,
         color: colorScheme.onPrimary,
@@ -441,8 +441,8 @@ ThemeData _buildPractitionerTheme(Brightness brightness, double fontScale) {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         minimumSize: const Size(44, 44), // Cible tactile ≥ 44dp
-        textStyle:
-            GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w700),
+        textStyle: const TextStyle(
+            fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w700,),
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
@@ -487,7 +487,8 @@ ThemeData _buildChildTheme(ColorScheme colorScheme, double fontScale) {
       backgroundColor: colorScheme.primary,
       foregroundColor: colorScheme.onPrimary,
       centerTitle: true,
-      titleTextStyle: GoogleFonts.baloo2(
+      titleTextStyle: TextStyle(
+        fontFamily: 'Baloo2',
         fontSize: 22 * fontScale,
         fontWeight: FontWeight.w600,
         color: colorScheme.onPrimary,
@@ -506,8 +507,8 @@ ThemeData _buildChildTheme(ColorScheme colorScheme, double fontScale) {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         minimumSize: const Size(48, 48), // Cible tactile ≥ 48dp (enfant)
-        textStyle:
-            GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w700),
+        textStyle: const TextStyle(
+            fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w700,),
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(

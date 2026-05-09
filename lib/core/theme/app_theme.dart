@@ -12,7 +12,6 @@
 // ============================================================
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// Palette de couleurs statique de l'application Orphotonie.
 ///
@@ -103,7 +102,8 @@ abstract class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 1,
         shadowColor: AppColors.primary.withValues(alpha: 0.12),
-        titleTextStyle: GoogleFonts.baloo2(
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Baloo2',
           fontSize: 22,
           fontWeight: FontWeight.w600,
           color: AppColors.primary,
@@ -129,7 +129,8 @@ abstract class AppTheme {
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle: GoogleFonts.nunito(
+          textStyle: const TextStyle(
+            fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w700,
           ),
@@ -146,7 +147,8 @@ abstract class AppTheme {
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle: GoogleFonts.nunito(
+          textStyle: const TextStyle(
+            fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -161,7 +163,8 @@ abstract class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          textStyle: GoogleFonts.nunito(
+          textStyle: const TextStyle(
+            fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
@@ -179,7 +182,8 @@ abstract class AppTheme {
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle: GoogleFonts.nunito(
+          textStyle: const TextStyle(
+            fontFamily: 'Nunito',
             fontSize: 16,
             fontWeight: FontWeight.w700,
           ),
@@ -235,13 +239,15 @@ abstract class AppTheme {
           horizontal: 16,
           vertical: 14,
         ),
-        labelStyle: GoogleFonts.nunito(
+        labelStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 16,
-          color: const Color(0xFF6B6880),
+          color: Color(0xFF6B6880),
         ),
-        hintStyle: GoogleFonts.nunito(
+        hintStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 16,
-          color: const Color(0xFF9896A8),
+          color: Color(0xFF9896A8),
         ),
       ),
 
@@ -254,9 +260,10 @@ abstract class AppTheme {
         height: 72,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final isSelected = states.contains(WidgetState.selected);
-          return GoogleFonts.nunito(
+          return TextStyle(
+            fontFamily: 'Nunito',
             fontSize: 12,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
             color: isSelected ? AppColors.primary : const Color(0xFF6B6880),
           );
         }),
@@ -270,26 +277,28 @@ abstract class AppTheme {
       ),
 
       // ---- Navigation Rail (tablette) ----
-      navigationRailTheme: NavigationRailThemeData(
+      navigationRailTheme: const NavigationRailThemeData(
         backgroundColor: AppColors.surfaceContainer,
         indicatorColor: AppColors.primaryContainer,
-        selectedIconTheme: const IconThemeData(
+        selectedIconTheme: IconThemeData(
           color: AppColors.primary,
           size: 24,
         ),
-        unselectedIconTheme: const IconThemeData(
+        unselectedIconTheme: IconThemeData(
           color: Color(0xFF6B6880),
           size: 24,
         ),
-        selectedLabelTextStyle: GoogleFonts.nunito(
+        selectedLabelTextStyle: TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 12,
           fontWeight: FontWeight.w700,
           color: AppColors.primary,
         ),
-        unselectedLabelTextStyle: GoogleFonts.nunito(
+        unselectedLabelTextStyle: TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: const Color(0xFF6B6880),
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF6B6880),
         ),
         elevation: 0,
       ),
@@ -311,7 +320,8 @@ abstract class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surfaceContainer,
         selectedColor: AppColors.primaryContainer,
-        labelStyle: GoogleFonts.nunito(
+        labelStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
@@ -330,14 +340,16 @@ abstract class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        titleTextStyle: GoogleFonts.baloo2(
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Baloo2',
           fontSize: 20,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF1C1B1F),
+          color: Color(0xFF1C1B1F),
         ),
-        contentTextStyle: GoogleFonts.nunito(
+        contentTextStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 16,
-          color: const Color(0xFF49454F),
+          color: Color(0xFF49454F),
         ),
       ),
 
@@ -345,7 +357,8 @@ abstract class AppTheme {
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: const Color(0xFF2D2B42),
-        contentTextStyle: GoogleFonts.nunito(
+        contentTextStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 14,
           color: Colors.white,
         ),
@@ -378,14 +391,16 @@ abstract class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        titleTextStyle: GoogleFonts.nunito(
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF1C1B1F),
+          color: Color(0xFF1C1B1F),
         ),
-        subtitleTextStyle: GoogleFonts.nunito(
+        subtitleTextStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 14,
-          color: const Color(0xFF6B6880),
+          color: Color(0xFF6B6880),
         ),
       ),
 
@@ -409,7 +424,8 @@ abstract class AppTheme {
           color: const Color(0xFF2D2B42),
           borderRadius: BorderRadius.circular(8),
         ),
-        textStyle: GoogleFonts.nunito(
+        textStyle: const TextStyle(
+          fontFamily: 'Nunito',
           fontSize: 13,
           color: Colors.white,
         ),
@@ -489,21 +505,22 @@ abstract class AppTheme {
       useMaterial3: true,
       colorScheme: colorScheme,
       textTheme: textTheme,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surfaceContainerDark,
-        foregroundColor: const Color(0xFF9D91F0),
+        foregroundColor: Color(0xFF9D91F0),
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
         elevation: 0,
         scrolledUnderElevation: 1,
-        titleTextStyle: GoogleFonts.baloo2(
+        titleTextStyle: TextStyle(
+          fontFamily: 'Baloo2',
           fontSize: 22,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF9D91F0),
+          color: Color(0xFF9D91F0),
         ),
-        iconTheme: const IconThemeData(color: Color(0xFF9D91F0), size: 24),
+        iconTheme: IconThemeData(color: Color(0xFF9D91F0), size: 24),
         actionsIconTheme:
-            const IconThemeData(color: Color(0xFF9D91F0), size: 24),
+            IconThemeData(color: Color(0xFF9D91F0), size: 24),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
@@ -512,8 +529,8 @@ abstract class AppTheme {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle:
-              GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(
+              fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w700,),
           minimumSize: const Size(0, 48),
         ),
       ),
@@ -524,8 +541,8 @@ abstract class AppTheme {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle:
-              GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+              fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w600,),
           minimumSize: const Size(0, 48),
         ),
       ),
@@ -533,8 +550,8 @@ abstract class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: const Color(0xFF9D91F0),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle:
-              GoogleFonts.nunito(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(
+              fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w600,),
           minimumSize: const Size(0, 44),
         ),
       ),
@@ -565,10 +582,10 @@ abstract class AppTheme {
         fillColor: AppColors.surfaceContainerDark,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        labelStyle:
-            GoogleFonts.nunito(fontSize: 16, color: const Color(0xFF9896A8)),
-        hintStyle:
-            GoogleFonts.nunito(fontSize: 16, color: const Color(0xFF6B6880)),
+        labelStyle: const TextStyle(
+            fontFamily: 'Nunito', fontSize: 16, color: Color(0xFF9896A8),),
+        hintStyle: const TextStyle(
+            fontFamily: 'Nunito', fontSize: 16, color: Color(0xFF6B6880),),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.surfaceContainerDark,
@@ -578,9 +595,10 @@ abstract class AppTheme {
         height: 72,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final isSelected = states.contains(WidgetState.selected);
-          return GoogleFonts.nunito(
+          return TextStyle(
+            fontFamily: 'Nunito',
             fontSize: 12,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
             color:
                 isSelected ? const Color(0xFF9D91F0) : const Color(0xFF9896A8),
           );
@@ -616,82 +634,82 @@ abstract class AppTheme {
   /// automatiquement au mode sombre sans duplication de code.
   static TextTheme _buildTextTheme(Color bodyColor) {
     final c = bodyColor;
-    return GoogleFonts.nunitoTextTheme().copyWith(
-      displayLarge: GoogleFonts.baloo2(
-        fontSize: 57,
-        fontWeight: FontWeight.w700,
-        color: c,
-      ),
-      displayMedium: GoogleFonts.baloo2(
-        fontSize: 45,
-        fontWeight: FontWeight.w700,
-        color: c,
-      ),
-      displaySmall: GoogleFonts.baloo2(
-        fontSize: 36,
-        fontWeight: FontWeight.w700,
-        color: c,
-      ),
-      headlineLarge: GoogleFonts.baloo2(
-        fontSize: 32,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      headlineMedium: GoogleFonts.baloo2(
-        fontSize: 28,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      headlineSmall: GoogleFonts.baloo2(
-        fontSize: 24,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      titleLarge: GoogleFonts.nunito(
-        fontSize: 22,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      titleMedium: GoogleFonts.nunito(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      titleSmall: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      bodyLarge: GoogleFonts.nunito(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: c,
-      ),
-      bodyMedium: GoogleFonts.nunito(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: c,
-      ),
-      bodySmall: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: c,
-      ),
-      labelLarge: GoogleFonts.nunito(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        color: c,
-      ),
-      labelMedium: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: c,
-      ),
-      labelSmall: GoogleFonts.nunito(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: c,
-      ),
+    return const TextTheme().copyWith(
+      displayLarge: TextStyle(
+          fontFamily: 'Baloo2',
+          fontSize: 57,
+          fontWeight: FontWeight.w700,
+          color: c,),
+      displayMedium: TextStyle(
+          fontFamily: 'Baloo2',
+          fontSize: 45,
+          fontWeight: FontWeight.w700,
+          color: c,),
+      displaySmall: TextStyle(
+          fontFamily: 'Baloo2',
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          color: c,),
+      headlineLarge: TextStyle(
+          fontFamily: 'Baloo2',
+          fontSize: 32,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      headlineMedium: TextStyle(
+          fontFamily: 'Baloo2',
+          fontSize: 28,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      headlineSmall: TextStyle(
+          fontFamily: 'Baloo2',
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      titleLarge: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 22,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      titleMedium: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      titleSmall: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      bodyLarge: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: c,),
+      bodyMedium: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: c,),
+      bodySmall: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: c,),
+      labelLarge: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      labelMedium: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: c,),
+      labelSmall: TextStyle(
+          fontFamily: 'Nunito',
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: c,),
     );
   }
 }
