@@ -37,7 +37,7 @@ class GridCell extends StatelessWidget {
     Color textColor;
 
     if (highlightColor != null) {
-      bgColor = highlightColor!.withOpacity(0.3);
+      bgColor = highlightColor!.withValues(alpha: 0.3);
       textColor = highlightColor!;
     } else if (isSelected) {
       bgColor = theme.colorScheme.primaryContainer;
@@ -56,7 +56,7 @@ class GridCell extends StatelessWidget {
         border: Border.all(
           color: isSelected
               ? theme.colorScheme.primary
-              : theme.colorScheme.outlineVariant.withOpacity(0.3),
+              : theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
           width: isSelected ? 2 : 0.5,
         ),
       ),

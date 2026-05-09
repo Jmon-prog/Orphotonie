@@ -252,7 +252,7 @@ class _GameView extends StatelessWidget {
                       vertical: 10,
                     ),
                     decoration: BoxDecoration(
-                      color: feedbackColor.withOpacity(0.15),
+                      color: feedbackColor.withValues(alpha: 0.15),
                       border: Border.all(color: feedbackColor),
                       borderRadius: BorderRadius.circular(32),
                     ),
@@ -346,7 +346,7 @@ class _SyllablesRow extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: syl == null
                     ? Border.all(
-                        color: colorScheme.outline.withOpacity(0.4),
+                        color: colorScheme.outline.withValues(alpha: 0.4),
                         style: BorderStyle.solid,
                       )
                     : null,
@@ -441,7 +441,7 @@ class _AnswerRow extends StatelessWidget {
                   border: Border.all(
                     color: syl != null
                         ? Colors.transparent
-                        : colorScheme.outline.withOpacity(0.6),
+                        : colorScheme.outline.withValues(alpha: 0.6),
                   ),
                 ),
                 alignment: Alignment.center,

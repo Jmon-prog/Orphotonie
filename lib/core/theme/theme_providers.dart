@@ -429,7 +429,7 @@ ThemeData _buildPractitionerTheme(Brightness brightness, double fontScale) {
       ),
       elevation: 0,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: colorScheme.surface,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -494,7 +494,7 @@ ThemeData _buildChildTheme(ColorScheme colorScheme, double fontScale) {
       ),
       elevation: 0,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: colorScheme.surface,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

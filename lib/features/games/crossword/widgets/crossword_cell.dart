@@ -68,13 +68,13 @@ class CrosswordCell extends StatelessWidget {
     // Couleur de fond
     Color bgColor;
     if (isSelected) {
-      bgColor = Theme.of(context).colorScheme.primary.withOpacity(0.4);
+      bgColor = Theme.of(context).colorScheme.primary.withValues(alpha: 0.4);
     } else if (isInSelectedWord) {
-      bgColor = Theme.of(context).colorScheme.primary.withOpacity(0.15);
+      bgColor = Theme.of(context).colorScheme.primary.withValues(alpha: 0.15);
     } else if (cellState == CellState.correct) {
-      bgColor = Colors.green.withOpacity(0.2);
+      bgColor = Colors.green.withValues(alpha: 0.2);
     } else if (cellState == CellState.revealed) {
-      bgColor = Colors.orange.withOpacity(0.2);
+      bgColor = Colors.orange.withValues(alpha: 0.2);
     } else {
       bgColor = Colors.white;
     }

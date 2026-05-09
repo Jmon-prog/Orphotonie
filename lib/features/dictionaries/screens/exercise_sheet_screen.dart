@@ -337,10 +337,10 @@ class _ConfigPanel extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: cs.primaryContainer.withOpacity(0.35),
+                    color: cs.primaryContainer.withValues(alpha: 0.35),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: cs.primary.withOpacity(0.25),
+                      color: cs.primary.withValues(alpha: 0.25),
                     ),
                   ),
                   child: Row(
@@ -495,7 +495,7 @@ class _ExerciseTypeCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected
                 ? cs.secondaryContainer
-                : cs.surfaceContainerHighest.withOpacity(0.4),
+                : cs.surfaceContainerHighest.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: selected ? cs.secondary : cs.outlineVariant,
@@ -531,7 +531,7 @@ class _ExerciseTypeCard extends StatelessWidget {
                               : type.instructions,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: selected
-                            ? cs.onSecondaryContainer.withOpacity(0.75)
+                            ? cs.onSecondaryContainer.withValues(alpha: 0.75)
                             : cs.onSurfaceVariant,
                       ),
                       maxLines: 2,
@@ -636,7 +636,7 @@ class _WordPreviewPanel extends StatelessWidget {
               indent: 20,
               endIndent: 20,
               height: 1,
-              color: cs.outlineVariant.withOpacity(0.4),
+              color: cs.outlineVariant.withValues(alpha: 0.4),
             ),
             itemBuilder: (ctx, i) => _WordPreviewTile(word: words[i]),
           ),

@@ -102,7 +102,7 @@ abstract class AppTheme {
         centerTitle: true,
         elevation: 0,
         scrolledUnderElevation: 1,
-        shadowColor: AppColors.primary.withOpacity(0.12),
+        shadowColor: AppColors.primary.withValues(alpha: 0.12),
         titleTextStyle: GoogleFonts.baloo2(
           fontSize: 22,
           fontWeight: FontWeight.w600,
@@ -197,7 +197,7 @@ abstract class AppTheme {
       ),
 
       // ---- Cards ----
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -323,7 +323,7 @@ abstract class AppTheme {
       ),
 
       // ---- Dialogues ----
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 3,
@@ -538,7 +538,7 @@ abstract class AppTheme {
           minimumSize: const Size(0, 44),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surfaceContainerDark,
         surfaceTintColor: Colors.transparent,
         elevation: 0,

@@ -339,7 +339,9 @@ class _FilterPanelState extends ConsumerState<FilterPanel> {
     int count = 0;
     if (f.targetPhonemes.isNotEmpty ||
         f.minPhonemes != null ||
-        f.minHomophones != null) count++;
+        f.minHomophones != null) {
+      count++;
+    }
     if (f.nbsyllList.isNotEmpty || f.minNbsyll != null || f.maxNbsyll != null) {
       count++;
     }
@@ -348,9 +350,15 @@ class _FilterPanelState extends ConsumerState<FilterPanel> {
         f.contains?.isNotEmpty == true ||
         f.cvPattern?.isNotEmpty == true ||
         f.exactLength != null ||
-        f.minLength != null) count++;
-    if (f.cgramList.isNotEmpty || f.genre != null || f.nombre != null) count++;
-    if (f.minPreval != null || f.minFreqortho != null) count++;
+        f.minLength != null) {
+      count++;
+    }
+    if (f.cgramList.isNotEmpty || f.genre != null || f.nombre != null) {
+      count++;
+    }
+    if (f.minPreval != null || f.minFreqortho != null) {
+      count++;
+    }
     if (f.hasMorphodecomp == true || f.morphoContains?.isNotEmpty == true) {
       count++;
     }

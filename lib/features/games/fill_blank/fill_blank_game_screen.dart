@@ -244,7 +244,7 @@ class _FillBlankGameScreenState extends ConsumerState<FillBlankGameScreen> {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .secondaryContainer
-                                      .withOpacity(0.5),
+                                      .withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Row(

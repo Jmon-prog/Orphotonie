@@ -204,7 +204,7 @@ class _FlashcardGameScreenState extends ConsumerState<FlashcardGameScreen>
               Text(
                 'Appuyez sur la carte pour voir la définition',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
               ),
             // Boutons de réponse (visibles après révélation)
@@ -342,8 +342,8 @@ class _CardFace extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: isFront
-              ? theme.colorScheme.primaryContainer.withOpacity(0.3)
-              : theme.colorScheme.secondaryContainer.withOpacity(0.3),
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
+              : theme.colorScheme.secondaryContainer.withValues(alpha: 0.3),
         ),
         child: isFront
             ? Center(

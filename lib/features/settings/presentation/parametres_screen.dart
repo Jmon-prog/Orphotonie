@@ -87,35 +87,39 @@ class ParametresScreen extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          Semantics(
-                            label: 'Thème système',
-                            child: RadioListTile<ThemeMode>(
-                              title: const Text('Système'),
-                              subtitle: const Text('Suit le mode de l\'OS'),
-                              secondary: const Icon(Icons.brightness_auto),
-                              value: ThemeMode.system,
-                              groupValue: themeState.themeMode,
-                              onChanged: (v) => themeNotifier.setThemeMode(v!),
-                            ),
-                          ),
-                          Semantics(
-                            label: 'Thème clair',
-                            child: RadioListTile<ThemeMode>(
-                              title: const Text('Clair'),
-                              secondary: const Icon(Icons.light_mode),
-                              value: ThemeMode.light,
-                              groupValue: themeState.themeMode,
-                              onChanged: (v) => themeNotifier.setThemeMode(v!),
-                            ),
-                          ),
-                          Semantics(
-                            label: 'Thème sombre',
-                            child: RadioListTile<ThemeMode>(
-                              title: const Text('Sombre'),
-                              secondary: const Icon(Icons.dark_mode),
-                              value: ThemeMode.dark,
-                              groupValue: themeState.themeMode,
-                              onChanged: (v) => themeNotifier.setThemeMode(v!),
+                          RadioGroup<ThemeMode>(
+                            groupValue: themeState.themeMode,
+                            onChanged: (v) {
+                              if (v != null) themeNotifier.setThemeMode(v);
+                            },
+                            child: Column(
+                              children: [
+                                Semantics(
+                                  label: 'Thème système',
+                                  child: const RadioListTile<ThemeMode>(
+                                    title: Text('Système'),
+                                    subtitle: Text('Suit le mode de l\'OS'),
+                                    secondary: Icon(Icons.brightness_auto),
+                                    value: ThemeMode.system,
+                                  ),
+                                ),
+                                Semantics(
+                                  label: 'Thème clair',
+                                  child: const RadioListTile<ThemeMode>(
+                                    title: Text('Clair'),
+                                    secondary: Icon(Icons.light_mode),
+                                    value: ThemeMode.light,
+                                  ),
+                                ),
+                                Semantics(
+                                  label: 'Thème sombre',
+                                  child: const RadioListTile<ThemeMode>(
+                                    title: Text('Sombre'),
+                                    secondary: Icon(Icons.dark_mode),
+                                    value: ThemeMode.dark,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -180,7 +184,7 @@ class ParametresScreen extends ConsumerWidget {
                                             ? [
                                                 BoxShadow(
                                                   color: theme.primary
-                                                      .withOpacity(0.4),
+                                                      .withValues(alpha: 0.4),
                                                   blurRadius: 8,
                                                 ),
                                               ]

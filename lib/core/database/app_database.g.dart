@@ -4630,7 +4630,7 @@ final class $$ProfilesTableReferences
 
   $$DictionariesTableProcessedTableManager get dictionariesRefs {
     final manager = $$DictionariesTableTableManager($_db, $_db.dictionaries)
-        .filter((f) => f.profileId.id($_item.id));
+        .filter((f) => f.profileId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_dictionariesRefsTable($_db));
     return ProcessedTableManager(
@@ -4648,7 +4648,7 @@ final class $$ProfilesTableReferences
       get dictionaryAssignmentsRefs {
     final manager = $$DictionaryAssignmentsTableTableManager(
             $_db, $_db.dictionaryAssignments)
-        .filter((f) => f.childId.id($_item.id));
+        .filter((f) => f.childId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_dictionaryAssignmentsRefsTable($_db));
@@ -4664,7 +4664,7 @@ final class $$ProfilesTableReferences
 
   $$WordMasteryTableProcessedTableManager get wordMasteryRefs {
     final manager = $$WordMasteryTableTableManager($_db, $_db.wordMastery)
-        .filter((f) => f.profileId.id($_item.id));
+        .filter((f) => f.profileId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_wordMasteryRefsTable($_db));
     return ProcessedTableManager(
@@ -4679,7 +4679,7 @@ final class $$ProfilesTableReferences
 
   $$SessionsTableProcessedTableManager get sessionsRefs {
     final manager = $$SessionsTableTableManager($_db, $_db.sessions)
-        .filter((f) => f.profileId.id($_item.id));
+        .filter((f) => f.profileId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_sessionsRefsTable($_db));
     return ProcessedTableManager(
@@ -4694,7 +4694,7 @@ final class $$ProfilesTableReferences
 
   $$DailyStatsTableProcessedTableManager get dailyStatsRefs {
     final manager = $$DailyStatsTableTableManager($_db, $_db.dailyStats)
-        .filter((f) => f.profileId.id($_item.id));
+        .filter((f) => f.profileId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_dailyStatsRefsTable($_db));
     return ProcessedTableManager(
@@ -4709,7 +4709,7 @@ final class $$ProfilesTableReferences
 
   $$AppSettingsTableProcessedTableManager get appSettingsRefs {
     final manager = $$AppSettingsTableTableManager($_db, $_db.appSettings)
-        .filter((f) => f.profileId.id($_item.id));
+        .filter((f) => f.profileId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_appSettingsRefsTable($_db));
     return ProcessedTableManager(
@@ -5196,7 +5196,8 @@ class $$ProfilesTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (dictionariesRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Profile, $ProfilesTable,
+                            Dictionary>(
                         currentTable: table,
                         referencedTable: $$ProfilesTableReferences
                             ._dictionariesRefsTable(db),
@@ -5208,7 +5209,8 @@ class $$ProfilesTableTableManager extends RootTableManager<
                                 .where((e) => e.profileId == item.id),
                         typedResults: items),
                   if (dictionaryAssignmentsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Profile, $ProfilesTable,
+                            DictionaryAssignment>(
                         currentTable: table,
                         referencedTable: $$ProfilesTableReferences
                             ._dictionaryAssignmentsRefsTable(db),
@@ -5220,7 +5222,8 @@ class $$ProfilesTableTableManager extends RootTableManager<
                             referencedItems.where((e) => e.childId == item.id),
                         typedResults: items),
                   if (wordMasteryRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Profile, $ProfilesTable,
+                            WordMasteryData>(
                         currentTable: table,
                         referencedTable:
                             $$ProfilesTableReferences._wordMasteryRefsTable(db),
@@ -5232,7 +5235,7 @@ class $$ProfilesTableTableManager extends RootTableManager<
                                 .where((e) => e.profileId == item.id),
                         typedResults: items),
                   if (sessionsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Profile, $ProfilesTable, Session>(
                         currentTable: table,
                         referencedTable:
                             $$ProfilesTableReferences._sessionsRefsTable(db),
@@ -5244,7 +5247,8 @@ class $$ProfilesTableTableManager extends RootTableManager<
                                 .where((e) => e.profileId == item.id),
                         typedResults: items),
                   if (dailyStatsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Profile, $ProfilesTable,
+                            DailyStat>(
                         currentTable: table,
                         referencedTable:
                             $$ProfilesTableReferences._dailyStatsRefsTable(db),
@@ -5256,7 +5260,8 @@ class $$ProfilesTableTableManager extends RootTableManager<
                                 .where((e) => e.profileId == item.id),
                         typedResults: items),
                   if (appSettingsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Profile, $ProfilesTable,
+                            AppSetting>(
                         currentTable: table,
                         referencedTable:
                             $$ProfilesTableReferences._appSettingsRefsTable(db),
@@ -5324,8 +5329,10 @@ final class $$DictionariesTableReferences
           $_aliasNameGenerator(db.dictionaries.profileId, db.profiles.id));
 
   $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<int>('profile_id')!;
+
     final manager = $$ProfilesTableTableManager($_db, $_db.profiles)
-        .filter((f) => f.id($_item.profileId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -5343,7 +5350,7 @@ final class $$DictionariesTableReferences
       get dictionaryAssignmentsRefs {
     final manager = $$DictionaryAssignmentsTableTableManager(
             $_db, $_db.dictionaryAssignments)
-        .filter((f) => f.dictionaryId.id($_item.id));
+        .filter((f) => f.dictionaryId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_dictionaryAssignmentsRefsTable($_db));
@@ -5359,7 +5366,7 @@ final class $$DictionariesTableReferences
 
   $$WordsTableProcessedTableManager get wordsRefs {
     final manager = $$WordsTableTableManager($_db, $_db.words)
-        .filter((f) => f.dictionaryId.id($_item.id));
+        .filter((f) => f.dictionaryId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_wordsRefsTable($_db));
     return ProcessedTableManager(
@@ -5374,7 +5381,7 @@ final class $$DictionariesTableReferences
 
   $$SessionsTableProcessedTableManager get sessionsRefs {
     final manager = $$SessionsTableTableManager($_db, $_db.sessions)
-        .filter((f) => f.dictionaryId.id($_item.id));
+        .filter((f) => f.dictionaryId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_sessionsRefsTable($_db));
     return ProcessedTableManager(
@@ -5778,7 +5785,8 @@ class $$DictionariesTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (dictionaryAssignmentsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Dictionary, $DictionariesTable,
+                            DictionaryAssignment>(
                         currentTable: table,
                         referencedTable: $$DictionariesTableReferences
                             ._dictionaryAssignmentsRefsTable(db),
@@ -5790,7 +5798,8 @@ class $$DictionariesTableTableManager extends RootTableManager<
                                 .where((e) => e.dictionaryId == item.id),
                         typedResults: items),
                   if (wordsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Dictionary, $DictionariesTable,
+                            Word>(
                         currentTable: table,
                         referencedTable:
                             $$DictionariesTableReferences._wordsRefsTable(db),
@@ -5802,7 +5811,8 @@ class $$DictionariesTableTableManager extends RootTableManager<
                                 .where((e) => e.dictionaryId == item.id),
                         typedResults: items),
                   if (sessionsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Dictionary, $DictionariesTable,
+                            Session>(
                         currentTable: table,
                         referencedTable: $$DictionariesTableReferences
                             ._sessionsRefsTable(db),
@@ -5861,8 +5871,10 @@ final class $$DictionaryAssignmentsTableReferences extends BaseReferences<
           db.dictionaryAssignments.dictionaryId, db.dictionaries.id));
 
   $$DictionariesTableProcessedTableManager get dictionaryId {
+    final $_column = $_itemColumn<int>('dictionary_id')!;
+
     final manager = $$DictionariesTableTableManager($_db, $_db.dictionaries)
-        .filter((f) => f.id($_item.dictionaryId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_dictionaryIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -5874,8 +5886,10 @@ final class $$DictionaryAssignmentsTableReferences extends BaseReferences<
           db.dictionaryAssignments.childId, db.profiles.id));
 
   $$ProfilesTableProcessedTableManager get childId {
+    final $_column = $_itemColumn<int>('child_id')!;
+
     final manager = $$ProfilesTableTableManager($_db, $_db.profiles)
-        .filter((f) => f.id($_item.childId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_childIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -6206,8 +6220,10 @@ final class $$WordsTableReferences
           $_aliasNameGenerator(db.words.dictionaryId, db.dictionaries.id));
 
   $$DictionariesTableProcessedTableManager get dictionaryId {
+    final $_column = $_itemColumn<int>('dictionary_id')!;
+
     final manager = $$DictionariesTableTableManager($_db, $_db.dictionaries)
-        .filter((f) => f.id($_item.dictionaryId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_dictionaryIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -6221,7 +6237,7 @@ final class $$WordsTableReferences
 
   $$WordMasteryTableProcessedTableManager get wordMasteryRefs {
     final manager = $$WordMasteryTableTableManager($_db, $_db.wordMastery)
-        .filter((f) => f.wordId.id($_item.id));
+        .filter((f) => f.wordId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_wordMasteryRefsTable($_db));
     return ProcessedTableManager(
@@ -6235,7 +6251,7 @@ final class $$WordsTableReferences
 
   $$WordAttemptsTableProcessedTableManager get wordAttemptsRefs {
     final manager = $$WordAttemptsTableTableManager($_db, $_db.wordAttempts)
-        .filter((f) => f.wordId.id($_item.id));
+        .filter((f) => f.wordId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_wordAttemptsRefsTable($_db));
     return ProcessedTableManager(
@@ -6624,7 +6640,8 @@ class $$WordsTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (wordMasteryRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Word, $WordsTable,
+                            WordMasteryData>(
                         currentTable: table,
                         referencedTable:
                             $$WordsTableReferences._wordMasteryRefsTable(db),
@@ -6636,7 +6653,7 @@ class $$WordsTableTableManager extends RootTableManager<
                             referencedItems.where((e) => e.wordId == item.id),
                         typedResults: items),
                   if (wordAttemptsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Word, $WordsTable, WordAttempt>(
                         currentTable: table,
                         referencedTable:
                             $$WordsTableReferences._wordAttemptsRefsTable(db),
@@ -6705,8 +6722,10 @@ final class $$WordMasteryTableReferences
           $_aliasNameGenerator(db.wordMastery.profileId, db.profiles.id));
 
   $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<int>('profile_id')!;
+
     final manager = $$ProfilesTableTableManager($_db, $_db.profiles)
-        .filter((f) => f.id($_item.profileId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -6717,8 +6736,10 @@ final class $$WordMasteryTableReferences
       .createAlias($_aliasNameGenerator(db.wordMastery.wordId, db.words.id));
 
   $$WordsTableProcessedTableManager get wordId {
+    final $_column = $_itemColumn<int>('word_id')!;
+
     final manager = $$WordsTableTableManager($_db, $_db.words)
-        .filter((f) => f.id($_item.wordId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_wordIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -7126,8 +7147,10 @@ final class $$SessionsTableReferences
       .createAlias($_aliasNameGenerator(db.sessions.profileId, db.profiles.id));
 
   $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<int>('profile_id')!;
+
     final manager = $$ProfilesTableTableManager($_db, $_db.profiles)
-        .filter((f) => f.id($_item.profileId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -7139,8 +7162,10 @@ final class $$SessionsTableReferences
           $_aliasNameGenerator(db.sessions.dictionaryId, db.dictionaries.id));
 
   $$DictionariesTableProcessedTableManager get dictionaryId {
+    final $_column = $_itemColumn<int>('dictionary_id')!;
+
     final manager = $$DictionariesTableTableManager($_db, $_db.dictionaries)
-        .filter((f) => f.id($_item.dictionaryId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_dictionaryIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -7155,7 +7180,7 @@ final class $$SessionsTableReferences
 
   $$WordAttemptsTableProcessedTableManager get wordAttemptsRefs {
     final manager = $$WordAttemptsTableTableManager($_db, $_db.wordAttempts)
-        .filter((f) => f.sessionId.id($_item.id));
+        .filter((f) => f.sessionId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_wordAttemptsRefsTable($_db));
     return ProcessedTableManager(
@@ -7510,7 +7535,8 @@ class $$SessionsTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (wordAttemptsRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<Session, $SessionsTable,
+                            WordAttempt>(
                         currentTable: table,
                         referencedTable: $$SessionsTableReferences
                             ._wordAttemptsRefsTable(db),
@@ -7573,8 +7599,10 @@ final class $$WordAttemptsTableReferences
           $_aliasNameGenerator(db.wordAttempts.sessionId, db.sessions.id));
 
   $$SessionsTableProcessedTableManager get sessionId {
+    final $_column = $_itemColumn<int>('session_id')!;
+
     final manager = $$SessionsTableTableManager($_db, $_db.sessions)
-        .filter((f) => f.id($_item.sessionId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_sessionIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -7585,8 +7613,10 @@ final class $$WordAttemptsTableReferences
       .createAlias($_aliasNameGenerator(db.wordAttempts.wordId, db.words.id));
 
   $$WordsTableProcessedTableManager get wordId {
+    final $_column = $_itemColumn<int>('word_id')!;
+
     final manager = $$WordsTableTableManager($_db, $_db.words)
-        .filter((f) => f.id($_item.wordId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_wordIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -7953,8 +7983,10 @@ final class $$DailyStatsTableReferences
           $_aliasNameGenerator(db.dailyStats.profileId, db.profiles.id));
 
   $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<int>('profile_id')!;
+
     final manager = $$ProfilesTableTableManager($_db, $_db.profiles)
-        .filter((f) => f.id($_item.profileId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(
@@ -8263,8 +8295,10 @@ final class $$AppSettingsTableReferences
           $_aliasNameGenerator(db.appSettings.profileId, db.profiles.id));
 
   $$ProfilesTableProcessedTableManager get profileId {
+    final $_column = $_itemColumn<int>('profile_id')!;
+
     final manager = $$ProfilesTableTableManager($_db, $_db.profiles)
-        .filter((f) => f.id($_item.profileId));
+        .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_profileIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(

@@ -132,7 +132,9 @@ class CrosswordGameState {
   CrosswordPlacement? get selectedPlacement {
     if (selection == null || gridData == null) return null;
     if (selection!.placementIndex < 0 ||
-        selection!.placementIndex >= gridData!.placements.length) return null;
+        selection!.placementIndex >= gridData!.placements.length) {
+      return null;
+    }
     return gridData!.placements[selection!.placementIndex];
   }
 

@@ -151,7 +151,7 @@ class PraticienAccueilScreen extends ConsumerWidget {
                                         : 'Suivez leur progression depuis "Stats"',
                                     style: textTheme.bodySmall?.copyWith(
                                       color: colorScheme.onPrimaryContainer
-                                          .withOpacity(0.8),
+                                          .withValues(alpha: 0.8),
                                     ),
                                   ),
                                 ],
@@ -239,7 +239,7 @@ class PraticienAccueilScreen extends ConsumerWidget {
                             'Ajoutez un enfant depuis l\'écran de sélection',
                             style: TextStyle(
                               color: colorScheme.onSecondaryContainer
-                                  .withOpacity(0.8),
+                                  .withValues(alpha: 0.8),
                             ),
                           ),
                         ),
@@ -291,7 +291,7 @@ class _QuickCard extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.12),
+                    color: color.withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(icon, size: 26, color: color),

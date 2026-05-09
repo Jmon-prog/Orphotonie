@@ -82,7 +82,7 @@ class _DifficultWordTile extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: CircleAvatar(
-          backgroundColor: rateColor.withOpacity(0.15),
+          backgroundColor: rateColor.withValues(alpha: 0.15),
           child: Text(
             '${word.successRate.round()}%',
             style: TextStyle(
@@ -109,7 +109,7 @@ class _DifficultWordTile extends StatelessWidget {
                 word.dictionaryName,
                 style: TextStyle(
                   fontSize: 11,
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
               ),
           ],

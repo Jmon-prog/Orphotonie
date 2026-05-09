@@ -58,7 +58,7 @@ class EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final color = iconColor ?? theme.colorScheme.primary.withOpacity(0.35);
+    final color = iconColor ?? theme.colorScheme.primary.withValues(alpha: 0.35);
     final iconSize = compact ? 56.0 : 80.0;
     final titleStyle =
         compact ? theme.textTheme.titleMedium : theme.textTheme.titleLarge;
@@ -76,7 +76,7 @@ class EmptyState extends StatelessWidget {
                 width: iconSize + AppSpacing.xl,
                 height: iconSize + AppSpacing.xl,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.08),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -103,7 +103,7 @@ class EmptyState extends StatelessWidget {
                 Text(
                   description!,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -154,13 +154,13 @@ class EmptyStateInline extends StatelessWidget {
           Icon(
             icon,
             size: 40,
-            color: theme.colorScheme.onSurface.withOpacity(0.3),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
             title,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.5),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
             textAlign: TextAlign.center,
           ),

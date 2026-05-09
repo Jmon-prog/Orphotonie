@@ -226,7 +226,7 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> {
             Text(
               'Tu as trouvé toutes les paires !',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 28),
@@ -405,13 +405,13 @@ class _CardFace extends StatelessWidget {
           color: isMatched
               ? Colors.green
               : isWordSide
-                  ? theme.colorScheme.primary.withOpacity(0.4)
-                  : theme.colorScheme.secondary.withOpacity(0.4),
+                  ? theme.colorScheme.primary.withValues(alpha: 0.4)
+                  : theme.colorScheme.secondary.withValues(alpha: 0.4),
           width: isMatched ? 2.5 : 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -425,7 +425,7 @@ class _CardFace extends StatelessWidget {
             Icon(
               isMatched ? Icons.check_circle : Icons.abc_rounded,
               size: 18,
-              color: textColor.withOpacity(0.6),
+              color: textColor.withValues(alpha: 0.6),
             ),
             const SizedBox(height: 4),
           ],
@@ -455,12 +455,12 @@ class _CardBack extends StatelessWidget {
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -470,7 +470,7 @@ class _CardBack extends StatelessWidget {
         child: Icon(
           Icons.question_mark_rounded,
           size: 28,
-          color: theme.colorScheme.onSurface.withOpacity(0.3),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
         ),
       ),
     );
@@ -514,7 +514,7 @@ class _StatBadge extends StatelessWidget {
             Text(
               label,
               style: theme.textTheme.labelSmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],

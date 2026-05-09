@@ -108,7 +108,7 @@ class _HeatmapPainter extends CustomPainter {
       final paint = Paint()
         ..color = intensity > 0
             ? Color.lerp(
-                activeColor.withOpacity(0.15),
+                activeColor.withValues(alpha: 0.15),
                 activeColor,
                 intensity,
               )!

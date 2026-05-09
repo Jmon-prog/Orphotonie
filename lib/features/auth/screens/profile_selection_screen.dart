@@ -44,7 +44,7 @@ class ProfileSelectionScreen extends ConsumerWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(0.28),
+                          .withValues(alpha: 0.28),
                       blurRadius: 20,
                       offset: const Offset(0, 6),
                     ),
@@ -73,7 +73,7 @@ class ProfileSelectionScreen extends ConsumerWidget {
                     color: Theme.of(context)
                         .colorScheme
                         .onSurface
-                        .withOpacity(0.7),
+                        .withValues(alpha: 0.7),
                   ),
             ),
             const SizedBox(height: 32),

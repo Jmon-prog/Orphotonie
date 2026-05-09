@@ -148,7 +148,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen>
                                 : Theme.of(context)
                                     .colorScheme
                                     .primary
-                                    .withOpacity(0.2),
+                                    .withValues(alpha: 0.2),
                           ),
                         ),
                       );

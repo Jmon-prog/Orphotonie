@@ -82,7 +82,7 @@ class ThemedAppBar extends StatelessWidget implements PreferredSizeWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(0.75),
+                                .withValues(alpha: 0.75),
                           ),
                     ),
                   ],
@@ -161,7 +161,7 @@ class TabbedThemedAppBar extends StatelessWidget
         indicatorColor: colorScheme.primary,
         indicatorWeight: 3,
         labelColor: colorScheme.primary,
-        unselectedLabelColor: colorScheme.onSurface.withOpacity(0.6),
+        unselectedLabelColor: colorScheme.onSurface.withValues(alpha: 0.6),
         dividerColor: Colors.transparent,
       ),
     );

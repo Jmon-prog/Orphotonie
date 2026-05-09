@@ -151,7 +151,7 @@ class _DefinitionQcmGameScreenState
               Text(
                 'Quelle est la définition de ce mot ?',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -279,7 +279,7 @@ class _ChoiceTile extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 12),
         child: Material(
           color: tileColor ??
-              theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+              theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
           child: InkWell(
             onTap: onTap,

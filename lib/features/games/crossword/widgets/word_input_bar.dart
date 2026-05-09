@@ -62,7 +62,7 @@ class WordInputBar extends StatelessWidget {
           color: Theme.of(context).colorScheme.surface,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 4,
               offset: const Offset(0, -2),
             ),
@@ -132,14 +132,14 @@ class WordInputBar extends StatelessWidget {
                 Color bgColor;
                 if (state == CellState.correct) {
                   borderColor = Colors.green;
-                  bgColor = Colors.green.withOpacity(0.15);
+                  bgColor = Colors.green.withValues(alpha: 0.15);
                 } else if (state == CellState.revealed) {
                   borderColor = Colors.orange;
-                  bgColor = Colors.orange.withOpacity(0.15);
+                  bgColor = Colors.orange.withValues(alpha: 0.15);
                 } else if (isActive) {
                   borderColor = Theme.of(context).colorScheme.primary;
                   bgColor =
-                      Theme.of(context).colorScheme.primary.withOpacity(0.1);
+                      Theme.of(context).colorScheme.primary.withValues(alpha: 0.1);
                 } else {
                   borderColor = Colors.grey.shade400;
                   bgColor = Colors.white;

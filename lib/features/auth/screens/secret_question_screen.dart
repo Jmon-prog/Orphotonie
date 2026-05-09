@@ -115,7 +115,7 @@ class _SecretQuestionScreenState extends ConsumerState<SecretQuestionScreen> {
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withOpacity(0.7),
+                              .withValues(alpha: 0.7),
                         ),
                   ),
                   const SizedBox(height: 32),
@@ -129,13 +129,13 @@ class _SecretQuestionScreenState extends ConsumerState<SecretQuestionScreen> {
                         color: Theme.of(context)
                             .colorScheme
                             .primaryContainer
-                            .withOpacity(0.4),
+                            .withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(0.3),
+                              .withValues(alpha: 0.3),
                         ),
                       ),
                       child: Text(
@@ -155,7 +155,7 @@ class _SecretQuestionScreenState extends ConsumerState<SecretQuestionScreen> {
                         color: Theme.of(context)
                             .colorScheme
                             .errorContainer
-                            .withOpacity(0.4),
+                            .withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -209,7 +209,7 @@ class _SecretQuestionScreenState extends ConsumerState<SecretQuestionScreen> {
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
-                              .withOpacity(0.55),
+                              .withValues(alpha: 0.55),
                         ),
                   ),
                   const SizedBox(height: 40),

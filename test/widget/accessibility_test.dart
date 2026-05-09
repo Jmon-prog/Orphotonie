@@ -4,8 +4,6 @@
 //               le contraste WCAG AA et les cibles tactiles.
 // ============================================================
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -45,7 +43,7 @@ void main() {
       final semantics = tester.getSemantics(find.byIcon(Icons.play_arrow));
       expect(semantics.label, 'Action');
       expect(
-        semantics.getSemanticsData().hasFlag(SemanticsFlag.isButton),
+        semantics.getSemanticsData().flagsCollection.isButton,
         isTrue,
       );
     });
@@ -64,7 +62,7 @@ void main() {
       );
       final semantics = tester.getSemantics(find.text('Titre'));
       expect(
-        semantics.getSemanticsData().hasFlag(SemanticsFlag.isHeader),
+        semantics.getSemanticsData().flagsCollection.isHeader,
         isTrue,
       );
     });
@@ -82,7 +80,7 @@ void main() {
       );
       final semantics = tester.getSemantics(find.byIcon(Icons.star_border));
       expect(
-        semantics.getSemanticsData().hasFlag(SemanticsFlag.isImage),
+        semantics.getSemanticsData().flagsCollection.isImage,
         isTrue,
       );
     });
@@ -159,7 +157,7 @@ void main() {
       );
       final semantics = tester.getSemantics(find.byIcon(Icons.send));
       expect(
-        semantics.getSemanticsData().hasFlag(SemanticsFlag.isButton),
+        semantics.getSemanticsData().flagsCollection.isButton,
         isTrue,
       );
     });

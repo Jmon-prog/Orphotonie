@@ -114,7 +114,7 @@ class CluesPanel extends StatelessWidget {
             dense: true,
             selected: isSelected,
             selectedTileColor:
-                Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
             leading: CircleAvatar(
               radius: 14,
               backgroundColor: isCompleted

@@ -110,7 +110,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                 color: index == _currentPage
                                     ? theme.colorScheme.primary
                                     : theme.colorScheme.primary
-                                        .withOpacity(0.3),
+                                        .withValues(alpha: 0.3),
                               ),
                             ),
                           ),

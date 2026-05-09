@@ -1067,22 +1067,30 @@ class _PrintExerciseDialogState extends State<PrintExerciseDialog> {
               style: theme.textTheme.labelLarge,
             ),
             const SizedBox(height: 8),
-            ...ExerciseType.values.map(
-              (type) => RadioListTile<ExerciseType>(
-                value: type,
-                groupValue: _selectedType,
-                onChanged: _generating
-                    ? null
-                    : (v) => setState(() => _selectedType = v!),
-                title: Text(type.label),
-                subtitle: type == ExerciseType.wordSearch
-                    ? Text(
-                        'Limité aux 12 premiers mots (min. 3 lettres).',
-                        style: theme.textTheme.bodySmall,
-                      )
-                    : null,
-                dense: true,
-                contentPadding: EdgeInsets.zero,
+            RadioGroup<ExerciseType>(
+              groupValue: _selectedType,
+              onChanged: _generating
+                  ? (_) {}
+                  : (v) {
+                      if (v != null) setState(() => _selectedType = v);
+                    },
+              child: Column(
+                children: ExerciseType.values
+                    .map(
+                      (type) => RadioListTile<ExerciseType>(
+                        value: type,
+                        title: Text(type.label),
+                        subtitle: type == ExerciseType.wordSearch
+                            ? Text(
+                                'Limité aux 12 premiers mots (min. 3 lettres).',
+                                style: theme.textTheme.bodySmall,
+                              )
+                            : null,
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    )
+                    .toList(),
               ),
             ),
             const SizedBox(height: 8),
