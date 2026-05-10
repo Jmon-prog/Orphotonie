@@ -45,20 +45,16 @@ class QuickSearch {
   final String whereClause;
 }
 
-/// 9 raccourcis couvrant les besoins courants en orthophonie.
+/// 8 raccourcis couvrant les besoins courants en orthophonie.
 const List<QuickSearch> kQuickSearches = [
-  QuickSearch('Son [s]', "phono LIKE '%s%'"),
-  QuickSearch('Son [S] (ch)', "phono LIKE '%S%'"),
-  QuickSearch('Son [f]', "phono LIKE '%f%'"),
-  QuickSearch('Son [R]', "phono LIKE '%R%'"),
+  QuickSearch('Son [s]', "phono GLOB '*s*'"),
+  QuickSearch('Son [S] (ch)', "phono GLOB '*S*'"),
+  QuickSearch('Son [f]', "phono GLOB '*f*'"),
+  QuickSearch('Son [R]', "phono GLOB '*R*'"),
   QuickSearch('CVCV bisyllabes', "cvortho = 'CVCV' AND nbsyll = 2"),
-  QuickSearch('Mots très connus', 'preval > 90'),
-  QuickSearch('Homophones', 'nbhomoph >= 1'),
-  QuickSearch('Morphologie riche', 'morphodecomp IS NOT NULL'),
-  QuickSearch(
-    'Mots ambigu POS',
-    "cgram_ortho LIKE '%,%'",
-  ),
+  QuickSearch('Mots fréquents', 'preval >= 75'),
+  QuickSearch('Monosyllabes', 'nbsyll = 1'),
+  QuickSearch('Groupes consonantiques', "cvortho GLOB '*CC*'"),
 ];
 
 // ---------------------------------------------------------------------------
@@ -132,7 +128,7 @@ class SearchFilters {
   final String? cvPattern;
 
   // ── Phonologiques ─────────────────────────────────────────────────────────
-  /// Phonèmes cibles quelque part dans le mot (OR entre eux)
+  /// Phonèmes cibles quelque part dans le mot (AND : le mot doit contenir TOUS les phonèmes sélectionnés)
   final List<String> targetPhonemes;
 
   /// Phonème en position initiale
@@ -254,17 +250,19 @@ class SearchFilters {
     }
 
     // Phonèmes cibles — AND : le mot doit contenir TOUS les phonèmes sélectionnés
+    // GLOB est utilisé (et non LIKE) car GLOB est sensible à la casse dans SQLite,
+    // ce qui est indispensable pour distinguer s/S, z/Z, n/N, j/J, etc. (SAMPA)
     for (final ph in targetPhonemes) {
-      where.add('phono LIKE ?');
-      args.add('%$ph%');
+      where.add('phono GLOB ?');
+      args.add('*$ph*');
     }
     if (startPhoneme != null && startPhoneme!.isNotEmpty) {
-      where.add('phono LIKE ?');
-      args.add('${startPhoneme!}%');
+      where.add('phono GLOB ?');
+      args.add('${startPhoneme!}*');
     }
     if (endPhoneme != null && endPhoneme!.isNotEmpty) {
-      where.add('phono LIKE ?');
-      args.add('%${endPhoneme!}');
+      where.add('phono GLOB ?');
+      args.add('*${endPhoneme!}');
     }
     if (minPhonemes != null) {
       where.add('nbphons >= ?');
@@ -341,10 +339,15 @@ class SearchFilters {
     }
 
     // Morphologie
+    // morphodecomp IS NOT NULL couvre 99,4 % de la base (inutile comme filtre).
+    // On distingue les mots vraiment décomposés (préfixe _ ou suffixe .)
+    // des mots simples (/racine sans affixe).
     if (hasMorphodecomp == true) {
-      where.add('morphodecomp IS NOT NULL');
+      where.add(
+          "(morphodecomp LIKE '\\_%' ESCAPE '\\' OR morphodecomp LIKE '%.%')");
     } else if (hasMorphodecomp == false) {
-      where.add('morphodecomp IS NULL');
+      where.add(
+          "(morphodecomp NOT LIKE '\\_%' ESCAPE '\\' AND morphodecomp NOT LIKE '%.%')");
     }
     if (morphoContains != null && morphoContains!.isNotEmpty) {
       where.add('morphodecomp LIKE ?');

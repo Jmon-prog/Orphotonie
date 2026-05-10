@@ -720,9 +720,9 @@ class _PhonologySection extends ConsumerWidget {
               // Homophones
               SwitchListTile(
                 title: const Text('Avec homophones'),
-                value: (filters.minHomophones ?? 0) >= 1,
+                value: (filters.minHomophones ?? 0) >= 2,
                 onChanged: (v) => onApply(
-                  filters.copyWith(minHomophones: v ? 1 : null),
+                  filters.copyWith(minHomophones: v ? 2 : null),
                 ),
                 contentPadding: EdgeInsets.zero,
                 visualDensity: VisualDensity.compact,
@@ -1050,7 +1050,8 @@ class _MorphologySection extends StatelessWidget {
           child: Column(
             children: [
               SwitchListTile(
-                title: const Text('Décomposition disponible'),
+                title: const Text('Avec préfixe ou suffixe'),
+                subtitle: const Text('ex: re·lire, chant·eur, im·possible'),
                 value: filters.hasMorphodecomp == true,
                 onChanged: (v) => onApply(
                   filters.copyWith(hasMorphodecomp: v ? true : null),

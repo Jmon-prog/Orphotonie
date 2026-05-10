@@ -3,6 +3,23 @@
 Toutes les modifications notables de ce projet sont documentées ici.
 Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 
+## [0.2.1] - 2026-05-10
+
+### Corrigé
+
+- **Filtres phonémiques** : remplacement de `LIKE` (insensible à la casse) par `GLOB` (sensible à la casse) pour les filtres sur la colonne `phono` (SAMPA). Évite que le son `[S]` (ch) corresponde aux mots contenant `[s]`, et vice versa pour tous les couples SAMPA (`Z`/`z`, `J`/`j`, `N`/`n`, `R`/`r`, `A`/`a`, `E`/`e`, etc.)
+- **Homophones** : correction du seuil `nbhomoph >= 1` → `>= 2`. Dans Lexique4, `nbhomoph` compte le mot lui-même ; `nbhomoph = 1` signifie "aucun homophone" et non "au moins un". Le filtre retournait incorrectement 4 591 mots (dont 1 293 sans aucun homophone) ; il en retourne maintenant 3 298 pertinents
+- **Filtre morphodecomp** : `IS NOT NULL` couvrait 99,4 % de la base (inefficace). Remplacé par une détection réelle de la décomposition morphologique : présence d'un préfixe (`_`) ou d'un suffixe (`.`), soit 66 % des mots. Label mis à jour : "Avec préfixe ou suffixe"
+
+### Modifié
+
+- **Raccourcis rapides** (`kQuickSearches`) : révision complète des 4 filtres génériques
+  - "Mots très connus" (`preval > 90`, trop restrictif) → **"Mots fréquents"** (`preval >= 75`)
+  - "Morphologie riche" (99 % de la base, inutile) → **"Monosyllabes"** (`nbsyll = 1`)
+  - "Mots ambigu POS" (jargon technique) → **"Groupes consonantiques"** (`cvortho GLOB '*CC*'`)
+  - "Homophones" supprimé des raccourcis rapides (disponible dans les filtres avancés)
+- Reformatage automatique `dart format` sur les fichiers de thème
+
 ## [0.2.0] - 2026-05-08
 
 ### Ajouté

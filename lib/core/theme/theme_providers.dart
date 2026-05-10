@@ -442,7 +442,10 @@ ThemeData _buildPractitionerTheme(Brightness brightness, double fontScale) {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         minimumSize: const Size(44, 44), // Cible tactile ≥ 44dp
         textStyle: const TextStyle(
-            fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w700,),
+          fontFamily: 'Nunito',
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
@@ -508,7 +511,10 @@ ThemeData _buildChildTheme(ColorScheme colorScheme, double fontScale) {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         minimumSize: const Size(48, 48), // Cible tactile ≥ 48dp (enfant)
         textStyle: const TextStyle(
-            fontFamily: 'Nunito', fontSize: 16, fontWeight: FontWeight.w700,),
+          fontFamily: 'Nunito',
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     ),
     filledButtonTheme: FilledButtonThemeData(
