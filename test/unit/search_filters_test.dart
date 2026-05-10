@@ -87,14 +87,14 @@ void main() {
       final (:sql, :args) = f.buildSql();
       // Détection réelle : préfixe (_) ou suffixe (.) dans morphodecomp
       expect(sql, contains('morphodecomp LIKE'));
-      expect(sql, contains("ESCAPE"));
+      expect(sql, contains('ESCAPE'));
     });
 
     test('hasMorphodecomp = false filtre les mots sans préfixe ni suffixe', () {
       const f = SearchFilters(hasMorphodecomp: false);
       final (:sql, :args) = f.buildSql();
       expect(sql, contains('morphodecomp NOT LIKE'));
-      expect(sql, contains("ESCAPE"));
+      expect(sql, contains('ESCAPE'));
     });
 
     test('rawWheres s\'ajoute entre parenthèses', () {
