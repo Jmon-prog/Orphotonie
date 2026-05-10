@@ -82,16 +82,19 @@ void main() {
       expect(args, contains(70.0));
     });
 
-    test('hasMorphodecomp = true génère IS NOT NULL', () {
+    test('hasMorphodecomp = true filtre les mots avec préfixe ou suffixe', () {
       const f = SearchFilters(hasMorphodecomp: true);
       final (:sql, :args) = f.buildSql();
-      expect(sql, contains('morphodecomp IS NOT NULL'));
+      // Détection réelle : préfixe (_) ou suffixe (.) dans morphodecomp
+      expect(sql, contains('morphodecomp LIKE'));
+      expect(sql, contains("ESCAPE"));
     });
 
-    test('hasMorphodecomp = false génère IS NULL', () {
+    test('hasMorphodecomp = false filtre les mots sans préfixe ni suffixe', () {
       const f = SearchFilters(hasMorphodecomp: false);
       final (:sql, :args) = f.buildSql();
-      expect(sql, contains('morphodecomp IS NULL'));
+      expect(sql, contains('morphodecomp NOT LIKE'));
+      expect(sql, contains("ESCAPE"));
     });
 
     test('rawWheres s\'ajoute entre parenthèses', () {
@@ -237,8 +240,8 @@ void main() {
   // QuickSearches
   // -------------------------------------------------------------------------
   group('kQuickSearches', () {
-    test('9 raccourcis définis', () {
-      expect(kQuickSearches, hasLength(9));
+    test('8 raccourcis définis', () {
+      expect(kQuickSearches, hasLength(8));
     });
 
     test('aucun raccourci ne contient islem (inclus par SearchFilters)', () {
