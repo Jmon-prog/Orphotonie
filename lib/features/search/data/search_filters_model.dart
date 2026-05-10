@@ -344,10 +344,12 @@ class SearchFilters {
     // des mots simples (/racine sans affixe).
     if (hasMorphodecomp == true) {
       where.add(
-          "(morphodecomp LIKE '\\_%' ESCAPE '\\' OR morphodecomp LIKE '%.%')");
+        "(morphodecomp LIKE '\\_%' ESCAPE '\\' OR morphodecomp LIKE '%.%')",
+      );
     } else if (hasMorphodecomp == false) {
       where.add(
-          "(morphodecomp NOT LIKE '\\_%' ESCAPE '\\' AND morphodecomp NOT LIKE '%.%')");
+        "(morphodecomp NOT LIKE '\\_%' ESCAPE '\\' AND morphodecomp NOT LIKE '%.%')",
+      );
     }
     if (morphoContains != null && morphoContains!.isNotEmpty) {
       where.add('morphodecomp LIKE ?');
