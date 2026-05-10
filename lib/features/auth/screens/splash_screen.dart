@@ -157,7 +157,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                               borderRadius: BorderRadius.circular(28),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.35),
+                                  color: Colors.black.withValues(alpha: 0.35),
                                   blurRadius: 32,
                                   offset: const Offset(0, 10),
                                 ),
@@ -261,7 +261,7 @@ class _BouncingDots extends StatelessWidget {
               width: 9,
               height: 9,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.85),
+                color: Colors.white.withValues(alpha: 0.85),
                 shape: BoxShape.circle,
               ),
             ),
